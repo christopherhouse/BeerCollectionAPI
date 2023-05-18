@@ -38,8 +38,8 @@ jobs:
     - name: Deploy Infrastructure
       uses: azure/arm-deploy@v1
       with:
-        resourceGroupName: ${{ inputs.RESOURCE_GROUP_NAME }}
+        resourceGroupName: ${{ inputs.resourceGroupName }}
         template: ./infrastructure-artifact/main.bicep
         parameters: ${{ format('{0}/parameters/{1}/parameters.json', env.INFRASTRUCTURE_ARTIFACT_PATH, inputs.environment) }} buildId=${{ github.run_id }}
         deploymentName: ${{ github.run_id }}
-        subscriptionId: ${{ inputs.SUBSCRIPTION_ID }}
+        subscriptionId: ${{ inputs.subscriptionId }}
