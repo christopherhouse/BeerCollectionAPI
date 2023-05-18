@@ -1,0 +1,21 @@
+{
+    "$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentParameters.json#",
+    "contentVersion": "1.0.0.0",
+    "parameters": {
+      "region": {
+        "value": "eastus"
+      },
+      "cosmosDbAccountName": {
+        "value": "cmh-beer-api-cdb"
+      },
+      "cosmosDbDatabaseName": {
+        "value": "cmh-beer-api-db"
+      },
+      "cosmosDbContainerName": {
+        "value": "cmh-beer-api-container"
+      },
+      "partitionKeyPath": {
+        "value": "/brewery"
+      }
+    }
+  }
