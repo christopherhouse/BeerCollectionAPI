@@ -16,6 +16,9 @@
       },
       "partitionKeyPath": {
         "value": "/brewery"
+      },
+      "keyVaultName": {
+        "value": "cmh-beer-api-kv"
       }
     }
   }
