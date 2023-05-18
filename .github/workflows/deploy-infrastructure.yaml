@@ -22,7 +22,7 @@ jobs:
     runs-on: ubuntu-latest
     environment: ${{ inputs.environment }}
     env:
-      INFRASTRUCTURE_ARTIFACT_PATH: './infrastructure-artifact/'
+      INFRASTRUCTURE_ARTIFACT_PATH: './infrastructure-artifact'
     steps:
     - name: Download Artifacts
       uses: actions/download-artifact@v2
@@ -39,7 +39,7 @@ jobs:
       run: |
         pwd
         ls -al
-        ls -al ${{ env.INFRASTRUCTURE_ARTIFACT_PATH }}
+        ls -al ${{ env.INFRASTRUCTURE_ARTIFACT_PATH }}/main.bicep
 
     - name: Deploy Infrastructure
       uses: azure/arm-deploy@v1
