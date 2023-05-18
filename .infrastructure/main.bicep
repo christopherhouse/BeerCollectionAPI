@@ -22,7 +22,7 @@ module cosmosDb './modules/cosmosDbAccount.bicep' = {
 module cosmosDbDatabase './modules/cosmosDbDatabase.bicep' = {
   name: cosmosDbDatabaseDeploymentName
   params: {
-    cosmosDbAccountName: cosmosDb.name
+    cosmosDbAccountName: cosmosDb.outputs.name
     cosmosDbDatabaseName: cosmosDbDatabaseName
   }
 }
@@ -31,7 +31,7 @@ module cosmosDbContainer './modules/cosmosDbContainer.bicep' = {
   name: cosmosDbContainerDeploymentName
   params: {
     cosmosDbAccountName: cosmosDb.name
-    cosmosDbDatabaseName: cosmosDbDatabase.name
+    cosmosDbDatabaseName: cosmosDbDatabase.outputs.name
     cosmosDbContainerName: cosmosDbContainerName
     partitionKeyPath: partitionKeyPath
   }
