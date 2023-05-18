@@ -17,4 +17,5 @@ jobs:
       environment: development
       subscriptionId: ${{ vars.SUBSCRIPTION_ID }}
       resourceGroupName: ${{ vars.RESOURCE_GROUP_NAME }}
-      AZURE_CREDENTIALS: ${{ secrets.AZURE-CREDENTIALS }}
+    secrets:
+      AZURE_CREDENTIALS: ${{ secrets.AZURE_CREDENTIALS }}
