@@ -28,5 +28,5 @@ jobs:
         username: ${{ secrets.REGISTRY_USERNAME }}
         password: ${{ secrets.REGISTRY_PASSWORD }}
     - run: |
-        docker build ./BeerCollectionAPI/ -t ${{ secrets.REGISTRY_LOGIN_SERVER }}/beer-collection-api:${{ github.sha }}
+        docker build -f BeerCollectionAPI/BeerCollectionAPI/Dockerfile -t ${{ secrets.REGISTRY_LOGIN_SERVER }}/beer-collection-api:${{ github.sha }}
         docker push ${{ secrets.REGISTRY_LOGIN_SERVER }}/beer-collection-api:${{ github.sha }}
