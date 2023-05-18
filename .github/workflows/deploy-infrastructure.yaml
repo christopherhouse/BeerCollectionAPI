@@ -46,6 +46,6 @@ jobs:
       with:
         resourceGroupName: ${{ inputs.resourceGroupName }}
         template: ./infrastructure-artifact/main.bicep
-        parameters: ${{ format('{0}/parameters/{1}/parameters.json', env.INFRASTRUCTURE_ARTIFACT_PATH, inputs.environment) }} buildId=${{ github.sha }}
+        parameters: ${{ format('{0}/parameters/{1}/parameters.json', env.INFRASTRUCTURE_ARTIFACT_PATH, inputs.environment) }} buildId=${{ github.run_id }}
         deploymentName: ${{ github.run_id }}
         subscriptionId: ${{ inputs.subscriptionId }}
