@@ -15,5 +15,5 @@ jobs:
     uses: ./.github/workflows/deploy-infrastructure.yaml
     with:
       environment: development
-      subscriptionId: ${{ env.SUBSCRIPTION_ID }}
-      resourceGroupName: ${{ env.RESOURCE_GROUP_NAME }}
+      subscriptionId: ${{ vars.SUBSCRIPTION_ID }}
+      resourceGroupName: ${{ vars.RESOURCE_GROUP_NAME }}
