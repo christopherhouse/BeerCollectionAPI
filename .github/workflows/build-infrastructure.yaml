@@ -3,8 +3,6 @@ on:
     secrets:
       AZURE_CREDENTIALS:
         required: true
-  
-  workflow_dispatch:
     
 jobs:
   build-infrastructure:

@@ -6,7 +6,7 @@
         "value": "eastus"
       },
       "cosmosDbAccountName": {
-        "value": "cmh-beer-api-cdb"
+        "value": "cmh-beer-api-cdb-dev"
       },
       "cosmosDbDatabaseName": {
         "value": "cmh-beer-api-db"
@@ -16,6 +16,15 @@
       },
       "partitionKeyPath": {
         "value": "/brewery"
+      },
+      "keyVaultName": {
+        "value": "cmh-beer-api-kv-dev"
+      },
+      "logAnalyticsWorkspaceName": {
+        "value": "cmh-beer-api-laws-dev"
+      },
+      "containerAppsEnvironmentName": {
+        "value": "cmh-beer-api-aca-env-dev"
       }
     }
   }

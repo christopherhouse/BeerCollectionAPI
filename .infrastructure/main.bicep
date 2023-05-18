@@ -3,11 +3,17 @@ param buildId string
 param cosmosDbAccountName string
 param cosmosDbDatabaseName string
 param cosmosDbContainerName string
-param partitionKey string
+param partitionKeyPath string
+param keyVaultName string
+param logAnalyticsWorkspaceName string
+param containerAppsEnvironmentName string
 
 var cosmosDbDeploymentName = '${cosmosDbAccountName}-${buildId}'
 var cosmosDbDatabaseDeploymentName = '${cosmosDbDatabaseName}-${buildId}'
 var cosmosDbContainerDeploymentName = '${cosmosDbContainerName}-${buildId}'
+var keyVaultDeploymentName = '${keyVaultName}-${buildId}'
+var logAnalyticsWorkspaceDeploymentName = '${logAnalyticsWorkspaceName}-${buildId}'
+var containerAppsEnvironmentDeploymentName = '${containerAppsEnvironmentName}-${buildId}'
 
 module cosmosDb './modules/cosmosDbAccount.bicep' = {
   name: cosmosDbDeploymentName
@@ -20,7 +26,7 @@ module cosmosDb './modules/cosmosDbAccount.bicep' = {
 module cosmosDbDatabase './modules/cosmosDbDatabase.bicep' = {
   name: cosmosDbDatabaseDeploymentName
   params: {
-    cosmosDbAccountName: cosmosDb.name
+    cosmosDbAccountName: cosmosDb.outputs.name
     cosmosDbDatabaseName: cosmosDbDatabaseName
   }
 }
@@ -28,8 +34,34 @@ module cosmosDbDatabase './modules/cosmosDbDatabase.bicep' = {
 module cosmosDbContainer './modules/cosmosDbContainer.bicep' = {
   name: cosmosDbContainerDeploymentName
   params: {
-    cosmosDbDatabaseName: cosmosDbDatabase.name
+    cosmosDbAccountName: cosmosDb.outputs.name
+    cosmosDbDatabaseName: cosmosDbDatabase.outputs.name
     cosmosDbContainerName: cosmosDbContainerName
-    partitionKey: partitionKey
+    partitionKeyPath: partitionKeyPath
+  }
+}
+
+module keyVault './modules/keyVault.bicep' = {
+  name: keyVaultDeploymentName
+  params: {
+    region: region
+    keyVaultName: keyVaultName
+  }
+}
+
+module logAnalyticsWorkspace './modules/logAnalyticsWorkspace.bicep' = {
+  name: logAnalyticsWorkspaceDeploymentName
+  params: {
+    region: region
+    logAnalyticsWorkspaceName: logAnalyticsWorkspaceName
+  }
+}
+
+module acaEnvironment './modules/containerAppsEnvironment.bicep' = {
+  name: containerAppsEnvironmentDeploymentName
+  params: {
+    region: region
+    containerAppsEnvironmentName: containerAppsEnvironmentName
+    logAnalyticsWorkspaceName: logAnalyticsWorkspace.outputs.name
   }
 }

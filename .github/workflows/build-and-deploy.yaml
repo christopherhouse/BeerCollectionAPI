@@ -1,0 +1,22 @@
+on:
+  push:
+  workflow_dispatch:
+
+name: Build and Deploy
+jobs:
+  build-infrastructure:
+    name: Build Infrastructure
+    uses: ./.github/workflows/build-infrastructure.yaml
+    secrets:
+      AZURE_CREDENTIALS: ${{ secrets.AZURE_CREDENTIALS }}
+
+  deploy-infrastructure-development:
+    name: Deploy Infrastructure to Development
+    uses: ./.github/workflows/deploy-infrastructure.yaml
+    needs: build-infrastructure
+    with:
+      environment: development
+      subscriptionId: ${{ vars.SUBSCRIPTION_ID }}
+      resourceGroupName: ${{ vars.RESOURCE_GROUP_NAME }}
+    secrets:
+      AZURE_CREDENTIALS: ${{ secrets.AZURE_CREDENTIALS }}
