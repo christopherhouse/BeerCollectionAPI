@@ -1,0 +1,45 @@
+on:
+  workflow_call:
+    inputs:
+      environment:
+        description: 'The environment to deploy to.'
+        required: true
+        type: string
+      subscriptionId:
+        description: 'The subscription to deploy to.'
+        required: true
+        type: string
+      resourceGroupName:
+        description: 'The resource group to deploy to.'
+        required: true
+        type: string
+    secrets:
+      AZURE_CREDENTIALS:
+        required: true
+
+jobs:
+  deploy-infrastructure:
+    runs-on: ubuntu-latest
+    environment: ${{ inputs.environment }}
+    env:
+      INFRASTRUCTURE_ARTIFACT_PATH: './infrastructure-artifact/'
+    steps:
+    - name: Download Artifacts
+      uses: actions/download-artifact@v2
+      with:
+        name: infrastructure-artifact
+        path: ${{ env.INFRASTRUCTURE_ARTIFACT_PATH }}}
+    
+    - name: Azure Login
+      uses: azure/login@v1
+      with:
+        creds: ${{ secrets.AZURE_CREDENTIALS }}
+    
+    - name: Deploy Infrastructure
+      uses: azure/arm-deploy@v1
+      with:
+        resourceGroupName: ${{ env.RESOURCE_GROUP_NAME }}
+        template: ./infrastructure-artifact/main.bicep
+        parameters: ${{ format('{0}/parameters/{1}/parameters.json', env.INFRASTRUCTURE_ARTIFACT_PATH, inputs.environment) }} buildId=${{ github.run_id }}
+        deploymentName: ${{ github.run_id }}
+        subscriptionId: ${{ env.SUBSCRIPTION_ID }}
