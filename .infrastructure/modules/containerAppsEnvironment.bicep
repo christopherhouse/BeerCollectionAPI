@@ -13,8 +13,8 @@ resource acaEnvironment 'Microsoft.App/managedEnvironments@2022-11-01-preview' =
     appLogsConfiguration: {
       destination: 'log-analytics'
       logAnalyticsConfiguration: {
-        customerId: reference(logAnalytics.name, logAnalytics.apiVersion).customerId
-        sharedKey: reference(logAnalytics.name, logAnalytics.apiVersion).primarySharedKey
+        customerId: logAnalytics.properties.customerId
+        sharedKey: logAnalytics.listKeys().primaryKey
       }
     }
   }
