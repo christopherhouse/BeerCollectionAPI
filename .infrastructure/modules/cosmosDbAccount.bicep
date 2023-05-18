@@ -1,7 +1,7 @@
 param cosmosDbAccountName string
 param region string
 
-resource cosmosdb 'Microsoft.DocumentDB/databaseAccounts@2023-04-15' = {
+resource cosmosdb 'Microsoft.DocumentDB/databaseAccounts@2022-11-15' = {
   name: cosmosDbAccountName
   location: region
   kind: 'GlobalDocumentDB'

@@ -5,7 +5,7 @@ resource cosmosDb 'Microsoft.DocumentDB/databaseAccounts@2023-04-15' existing = 
   name: cosmosDbAccountName
 }
 
-resource cosmosDbDatabase 'Microsoft.DocumentDB/databaseAccounts/sqlDatabases@2023-04-15' = {
+resource cosmosDbDatabase 'Microsoft.DocumentDB/databaseAccounts/sqlDatabases@2022-11-15' = {
   name: cosmosDbDatabaseName
   parent: cosmosDb
   properties: {
