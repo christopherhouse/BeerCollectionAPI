@@ -37,6 +37,8 @@ jobs:
     
     - name: ls
       run: |
+        pwd
+        ls -al
         ls -al ${{ env.INFRASTRUCTURE_ARTIFACT_PATH }}
 
     - name: Deploy Infrastructure
