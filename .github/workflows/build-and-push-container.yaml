@@ -1,0 +1,24 @@
+# on:
+#   workflow_call:
+#     secrets:
+#       AZURE_CREDENTIALS:
+#         required: true
+
+# jobs:
+#   build-and-push:
+#     runs-on: ubuntu-latest
+#     steps:
+#     - name: Checkout
+#       uses: actions/checkout@v2
+    
+#     - name: Azure Login
+#       uses: azure/login@v1
+#       with:
+#         creds: ${{ secrets.AZURE_CREDENTIALS }}
+    
+#     - name: Build and Push Image
+#       uses: azure/docker-login@v1
+#       with:
+#         login-server: ${{ env.REGISTRY_NAME }}.azurecr.io
+#         username: ${{ env.REGISTRY_NAME }}
+#         password: ${{ env.REGISTRY_PASSWORD }}
