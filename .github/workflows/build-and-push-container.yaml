@@ -21,6 +21,10 @@ jobs:
       with:
         creds: ${{ secrets.AZURE_CREDENTIALS }}
     
+    - run: |
+        ls -al .
+        ls -al ./BeerCollectionAPI
+
     - name: Build and Push Image
       uses: azure/docker-login@v1
       with:
