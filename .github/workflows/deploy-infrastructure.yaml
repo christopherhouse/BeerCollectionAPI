@@ -35,6 +35,10 @@ jobs:
       with:
         creds: ${{ secrets.AZURE_CREDENTIALS }}
     
+    - name: ls
+      run: |
+        ls -al ${{ env.INFRASTRUCTURE_ARTIFACT_PATH }}
+
     - name: Deploy Infrastructure
       uses: azure/arm-deploy@v1
       with:
