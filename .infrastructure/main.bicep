@@ -4,10 +4,12 @@ param cosmosDbAccountName string
 param cosmosDbDatabaseName string
 param cosmosDbContainerName string
 param partitionKeyPath string
+param keyVaultName string
 
 var cosmosDbDeploymentName = '${cosmosDbAccountName}-${buildId}'
 var cosmosDbDatabaseDeploymentName = '${cosmosDbDatabaseName}-${buildId}'
 var cosmosDbContainerDeploymentName = '${cosmosDbContainerName}-${buildId}'
+var keyVaultDeploymentName = '${keyVaultName}-${buildId}'
 
 module cosmosDb './modules/cosmosDbAccount.bicep' = {
   name: cosmosDbDeploymentName
@@ -31,5 +33,13 @@ module cosmosDbContainer './modules/cosmosDbContainer.bicep' = {
     cosmosDbDatabaseName: cosmosDbDatabase.name
     cosmosDbContainerName: cosmosDbContainerName
     partitionKeyPath: partitionKeyPath
+  }
+}
+
+module keyVault './modules/keyVault.bicep' = {
+  name: keyVaultDeploymentName
+  params: {
+    region: region
+    keyVaultName: keyVaultName
   }
 }
