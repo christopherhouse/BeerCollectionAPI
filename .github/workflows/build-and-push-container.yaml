@@ -31,6 +31,17 @@ jobs:
         login-server: ${{ secrets.REGISTRY_LOGIN_SERVER }}
         username: ${{ secrets.REGISTRY_USERNAME }}
         password: ${{ secrets.REGISTRY_PASSWORD }}
+
     - run: |
         docker build . -f BeerCollectionAPI/Dockerfile -t ${{ secrets.REGISTRY_LOGIN_SERVER }}/beer-collection-api:${{ github.sha }}
         docker push ${{ secrets.REGISTRY_LOGIN_SERVER }}/beer-collection-api:${{ github.sha }}
+
+    - run: |
+        echo ${{ github.sha }} >> ./container-version.txt
+
+    - name: Publish Docker Version Artifact
+      uses: actions/upload-artifact@v2
+      with:
+        name: container-version
+        path: ./container-version.txt
+    
