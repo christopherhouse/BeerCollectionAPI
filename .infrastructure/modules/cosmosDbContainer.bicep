@@ -1,5 +1,5 @@
 param cosmosDbContainerName string
-param partitionKey string
+param partitionKeyPath string
 param cosmosDbDatabaseName string
 
 resource cosmosDbDatabase 'Microsoft.DocumentDB/databaseAccounts/sqlDatabases@2023-04-15' existing = {
@@ -14,7 +14,7 @@ resource cosmosDbContainer 'Microsoft.DocumentDB/databaseAccounts/sqlDatabases/c
       id: cosmosDbContainerName
       partitionKey: {
         paths: [
-          partitionKey
+          partitionKeyPath
         ]
         kind: 'Hash'
       }

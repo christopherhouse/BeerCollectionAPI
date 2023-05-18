@@ -3,7 +3,7 @@ param buildId string
 param cosmosDbAccountName string
 param cosmosDbDatabaseName string
 param cosmosDbContainerName string
-param partitionKey string
+param partitionKeyPath string
 
 var cosmosDbDeploymentName = '${cosmosDbAccountName}-${buildId}'
 var cosmosDbDatabaseDeploymentName = '${cosmosDbDatabaseName}-${buildId}'
@@ -30,6 +30,6 @@ module cosmosDbContainer './modules/cosmosDbContainer.bicep' = {
   params: {
     cosmosDbDatabaseName: cosmosDbDatabase.name
     cosmosDbContainerName: cosmosDbContainerName
-    partitionKey: partitionKey
+    partitionKeyPath: partitionKeyPath
   }
 }
