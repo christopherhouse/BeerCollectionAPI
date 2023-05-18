@@ -13,6 +13,7 @@ jobs:
   deploy-infrastructure-development:
     name: Deploy Infrastructure to Development
     uses: ./.github/workflows/deploy-infrastructure.yaml
+    needs: build-infrastructure
     with:
       environment: development
       subscriptionId: ${{ vars.SUBSCRIPTION_ID }}
