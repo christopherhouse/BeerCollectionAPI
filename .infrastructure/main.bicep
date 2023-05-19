@@ -90,7 +90,7 @@ module containerApp './modules/containerApp.bicep' = {
     containerAppEnvironmentId: acaEnvironment.outputs.id
     containerAppName: containerAppName
     containerName: containerName
-    containerVersion: containerVersion
+    containerVersion: containerTagVersion
     region: region
     registry: registry.outputs.name
   }
