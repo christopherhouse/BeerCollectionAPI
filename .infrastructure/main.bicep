@@ -8,6 +8,9 @@ param keyVaultName string
 param logAnalyticsWorkspaceName string
 param containerAppsEnvironmentName string
 param containerRegistryName string
+param apiManagementServiceName string
+param apiManagementPublisherEmail string
+param apiManagementPublisherName string
 
 var cosmosDbDeploymentName = '${cosmosDbAccountName}-${buildId}'
 var cosmosDbDatabaseDeploymentName = '${cosmosDbDatabaseName}-${buildId}'
@@ -16,6 +19,7 @@ var keyVaultDeploymentName = '${keyVaultName}-${buildId}'
 var logAnalyticsWorkspaceDeploymentName = '${logAnalyticsWorkspaceName}-${buildId}'
 var containerAppsEnvironmentDeploymentName = '${containerAppsEnvironmentName}-${buildId}'
 var containerRegistryDeploymentName = '${containerRegistryName}-${buildId}'
+var apiManagementDeploymentName = '${apiManagementServiceName}-${buildId}'
 
 module cosmosDb './modules/cosmosDbAccount.bicep' = {
   name: cosmosDbDeploymentName
@@ -73,5 +77,15 @@ module registry './modules/containerRegistry.bicep' = {
   params: {
     region: region
     containerRegistryName: containerRegistryName
+  }
+}
+
+module apiManagement './modules/apiManagement.bicep' = {
+  name: apiManagementDeploymentName
+  params: {
+    region: region
+    apiManagementServiceName: apiManagementServiceName
+    publisherEmail: apiManagementPublisherEmail
+    publisherName: apiManagementPublisherName
   }
 }
