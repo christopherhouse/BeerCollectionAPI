@@ -11,6 +11,9 @@ param containerRegistryName string
 param apiManagementServiceName string
 param apiManagementPublisherEmail string
 param apiManagementPublisherName string
+param containerAppName string
+param containerName string
+param containerVersion string
 
 var cosmosDbDeploymentName = '${cosmosDbAccountName}-${buildId}'
 var cosmosDbDatabaseDeploymentName = '${cosmosDbDatabaseName}-${buildId}'
@@ -20,6 +23,7 @@ var logAnalyticsWorkspaceDeploymentName = '${logAnalyticsWorkspaceName}-${buildI
 var containerAppsEnvironmentDeploymentName = '${containerAppsEnvironmentName}-${buildId}'
 var containerRegistryDeploymentName = '${containerRegistryName}-${buildId}'
 var apiManagementDeploymentName = '${apiManagementServiceName}-${buildId}'
+var containerAppDeploymentName = '${containerAppName}-${buildId}'
 
 module cosmosDb './modules/cosmosDbAccount.bicep' = {
   name: cosmosDbDeploymentName
@@ -63,6 +67,14 @@ module logAnalyticsWorkspace './modules/logAnalyticsWorkspace.bicep' = {
   }
 }
 
+module registry './modules/containerRegistry.bicep' = {
+  name: containerRegistryDeploymentName
+  params: {
+    region: region
+    containerRegistryName: containerRegistryName
+  }
+}
+
 module acaEnvironment './modules/containerAppsEnvironment.bicep' = {
   name: containerAppsEnvironmentDeploymentName
   params: {
@@ -72,11 +84,15 @@ module acaEnvironment './modules/containerAppsEnvironment.bicep' = {
   }
 }
 
-module registry './modules/containerRegistry.bicep' = {
-  name: containerRegistryDeploymentName
+module containerApp './modules/containerApp.bicep' = {
+  name: containerAppDeploymentName
   params: {
+    containerAppEnvironmentId: acaEnvironment.outputs.id
+    containerAppName: containerAppName
+    containerName: containerName
+    containerVersion: containerVersion
     region: region
-    containerRegistryName: containerRegistryName
+    registry: registry.outputs.name
   }
 }
 

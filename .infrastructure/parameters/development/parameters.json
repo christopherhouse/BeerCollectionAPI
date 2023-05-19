@@ -37,6 +37,12 @@
       },
       "apiManagementPublisherName": {
         "value": "Chris House"
+      },
+      "containerAppName": {
+        "value": "cmh-beer-api-aca-dev"
+      },
+      "containerName": {
+        "value": "beer-collection-api"
       }
     }
   }
