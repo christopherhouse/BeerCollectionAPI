@@ -7,11 +7,11 @@ jobs:
   get-short-sha:
     runs-on: ubuntu-latest
     outputs:
-      short_sha: ${{ steps.get-short-sha.outputs.short_sha }}
+      short_sha: ${{ steps.bash-short-sha.outputs.short_sha }}
     steps:
     - run: |
        echo "sha_short=$(git rev-parse --short HEAD)" >> $GITHUB_OUTPUT
-      id: get-short-sha
+      id: bash-short-sha
  
   build-infrastructure:
     name: Build Infrastructure
