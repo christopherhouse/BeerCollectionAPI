@@ -13,7 +13,7 @@ param apiManagementPublisherEmail string
 param apiManagementPublisherName string
 param containerAppName string
 param containerName string
-param containerTagVersion string
+param containerVersionTag string
 
 var cosmosDbDeploymentName = '${cosmosDbAccountName}-${buildId}'
 var cosmosDbDatabaseDeploymentName = '${cosmosDbDatabaseName}-${buildId}'
@@ -90,7 +90,7 @@ module containerApp './modules/containerApp.bicep' = {
     containerAppEnvironmentId: acaEnvironment.outputs.id
     containerAppName: containerAppName
     containerName: containerName
-    containerVersion: containerTagVersion
+    containerVersion: containerVersionTag
     region: region
     registry: registry.outputs.name
   }

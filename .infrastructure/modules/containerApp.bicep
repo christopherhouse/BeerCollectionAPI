@@ -21,29 +21,27 @@ resource containerApp 'Microsoft.App/containerApps@2022-11-01-preview' = {
         targetPort: 80
         external: true
       }
+      registries: [
+        {
+          server: acr.properties.loginServer
+          username: acr.name
+          passwordSecretRef: 'acr-password'
+        }
+      ]
+      secrets: [
+        {
+          name: 'acr-password'
+          value: acr.listCredentials().passwords[0].value
+        }
+      ]      
     }
     template: {
       containers: [
         {
           image: containerImage
           name: 'beer-api'
-
         }
       ]
-    }
-    registries: [
-      {
-        name: registry
-        server: acr.properties.loginServer
-        username: acr.name
-        passwordSecretRef: 'acr-password'
-      }
-    ]
-    secrets: [
-      {
-        name: 'acr-password'
-        value: acr.listCredentials().passwords[0].value
-      }
-    ]
+    }    
   }
 }
