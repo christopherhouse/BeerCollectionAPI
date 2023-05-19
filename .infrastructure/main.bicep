@@ -7,6 +7,7 @@ param partitionKeyPath string
 param keyVaultName string
 param logAnalyticsWorkspaceName string
 param containerAppsEnvironmentName string
+param containerRegistryName string
 
 var cosmosDbDeploymentName = '${cosmosDbAccountName}-${buildId}'
 var cosmosDbDatabaseDeploymentName = '${cosmosDbDatabaseName}-${buildId}'
@@ -14,6 +15,7 @@ var cosmosDbContainerDeploymentName = '${cosmosDbContainerName}-${buildId}'
 var keyVaultDeploymentName = '${keyVaultName}-${buildId}'
 var logAnalyticsWorkspaceDeploymentName = '${logAnalyticsWorkspaceName}-${buildId}'
 var containerAppsEnvironmentDeploymentName = '${containerAppsEnvironmentName}-${buildId}'
+var containerRegistryDeploymentName = '${containerRegistryName}-${buildId}'
 
 module cosmosDb './modules/cosmosDbAccount.bicep' = {
   name: cosmosDbDeploymentName
@@ -63,5 +65,13 @@ module acaEnvironment './modules/containerAppsEnvironment.bicep' = {
     region: region
     containerAppsEnvironmentName: containerAppsEnvironmentName
     logAnalyticsWorkspaceName: logAnalyticsWorkspace.outputs.name
+  }
+}
+
+module registry './modules/containerRegistry.bicep' = {
+  name: containerRegistryDeploymentName
+  params: {
+    region: region
+    containerRegistryName: containerRegistryName
   }
 }

@@ -9,11 +9,21 @@ jobs:
     uses: ./.github/workflows/build-infrastructure.yaml
     secrets:
       AZURE_CREDENTIALS: ${{ secrets.AZURE_CREDENTIALS }}
+  
+  build-and-push-container:
+    name: Build and Push Container
+    uses: ./.github/workflows/build-and-push-container.yaml
+    secrets:
+      AZURE_CREDENTIALS: ${{ secrets.AZURE_CREDENTIALS }}
+      REGISTRY_LOGIN_SERVER: ${{ secrets.REGISTRY_LOGIN_SERVER }}
+      REGISTRY_USERNAME: ${{ secrets.REGISTRY_USERNAME }}
+      REGISTRY_PASSWORD: ${{ secrets.REGISTRY_PASSWORD }}
+
 
   deploy-infrastructure-development:
     name: Deploy Infrastructure to Development
     uses: ./.github/workflows/deploy-infrastructure.yaml
-    needs: build-infrastructure
+    needs: build-infrastructure 
     with:
       environment: development
       subscriptionId: ${{ vars.SUBSCRIPTION_ID }}

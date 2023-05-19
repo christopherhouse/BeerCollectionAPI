@@ -25,6 +25,9 @@
       },
       "containerAppsEnvironmentName": {
         "value": "cmh-beer-api-aca-env-dev"
+      },
+      "containerRegistryName": {
+        "value": "cmhbeerapicrdev"
       }
     }
   }
