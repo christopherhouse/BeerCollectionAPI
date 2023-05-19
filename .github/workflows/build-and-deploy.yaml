@@ -35,7 +35,7 @@ jobs:
   deploy-infrastructure-development:
     name: Deploy Infrastructure to Development
     uses: ./.github/workflows/deploy-infrastructure.yaml
-    needs: [build-infrastructure, get-short-sha]
+    needs: [build-infrastructure, build-and-push-container, get-short-sha]
     with:
       environment: development
       subscriptionId: ${{ vars.SUBSCRIPTION_ID }}
