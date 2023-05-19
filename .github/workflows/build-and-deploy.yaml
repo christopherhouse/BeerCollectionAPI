@@ -11,7 +11,8 @@ jobs:
     steps:
     - run: |
        echo "short_sha=$(git rev-parse --short HEAD)" >> $GITHUB_OUTPUT
-       echo "here is the short sha: $sha_short"
+       echo "here is the short sha: $short_sha"
+       echo "Here it is again: $(git rev-parse --short HEAD)"
       id: bash-short-sha
  
   build-infrastructure:
