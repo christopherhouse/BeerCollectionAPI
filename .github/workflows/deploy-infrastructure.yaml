@@ -13,6 +13,10 @@ on:
         description: 'The resource group to deploy to.'
         required: true
         type: string
+      containerVersionTag:
+        description: 'The container version tag to use.'
+        required: true
+        type: string
     secrets:
       AZURE_CREDENTIALS:
         required: true
@@ -34,18 +38,12 @@ jobs:
       uses: azure/login@v1
       with:
         creds: ${{ secrets.AZURE_CREDENTIALS }}
-    
-    - name: ls
-      run: |
-        pwd
-        ls -al
-        ls -al ${{ env.INFRASTRUCTURE_ARTIFACT_PATH }}/main.bicep
 
     - name: Deploy Infrastructure
       uses: azure/arm-deploy@v1
       with:
         resourceGroupName: ${{ inputs.resourceGroupName }}
         template: ./infrastructure-artifact/main.bicep
-        parameters: ${{ format('{0}/parameters/{1}/parameters.json', env.INFRASTRUCTURE_ARTIFACT_PATH, inputs.environment) }} buildId=${{ github.run_id }}
+        parameters: ${{ format('{0}/parameters/{1}/parameters.json', env.INFRASTRUCTURE_ARTIFACT_PATH, inputs.environment) }} buildId=${{ github.run_id }} containerVersionTag=${{ inputs.containerVersionTag }}
         deploymentName: ${{ github.run_id }}
         subscriptionId: ${{ inputs.subscriptionId }}

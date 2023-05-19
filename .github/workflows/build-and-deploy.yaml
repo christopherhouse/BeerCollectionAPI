@@ -4,6 +4,19 @@ on:
 
 name: Build and Deploy
 jobs:
+  get-short-sha:
+    runs-on: ubuntu-latest
+    outputs:
+      short_sha: ${{ steps.bash-short-sha.outputs.short_sha }}
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v3
+    - run: |
+       echo "short_sha=$(git rev-parse --short HEAD)" >> $GITHUB_OUTPUT
+       echo "here is the short sha: $short_sha"
+       echo "Here it is again: $(git rev-parse --short HEAD)"
+      id: bash-short-sha
+ 
   build-infrastructure:
     name: Build Infrastructure
     uses: ./.github/workflows/build-infrastructure.yaml
@@ -13,20 +26,23 @@ jobs:
   build-and-push-container:
     name: Build and Push Container
     uses: ./.github/workflows/build-and-push-container.yaml
+    needs: get-short-sha
+    with:
+      containerVersionTag: ${{ needs.get-short-sha.outputs.short_sha }}
     secrets:
       AZURE_CREDENTIALS: ${{ secrets.AZURE_CREDENTIALS }}
       REGISTRY_LOGIN_SERVER: ${{ secrets.REGISTRY_LOGIN_SERVER }}
       REGISTRY_USERNAME: ${{ secrets.REGISTRY_USERNAME }}
       REGISTRY_PASSWORD: ${{ secrets.REGISTRY_PASSWORD }}
 
-
   deploy-infrastructure-development:
     name: Deploy Infrastructure to Development
     uses: ./.github/workflows/deploy-infrastructure.yaml
-    needs: build-infrastructure 
+    needs: [build-infrastructure, build-and-push-container, get-short-sha]
     with:
       environment: development
       subscriptionId: ${{ vars.SUBSCRIPTION_ID }}
       resourceGroupName: ${{ vars.RESOURCE_GROUP_NAME }}
+      containerVersionTag: ${{ needs.get-short-sha.outputs.short_sha }}
     secrets:
       AZURE_CREDENTIALS: ${{ secrets.AZURE_CREDENTIALS }}

@@ -28,6 +28,21 @@
       },
       "containerRegistryName": {
         "value": "cmhbeerapicrdev"
+      },
+      "apiManagementServiceName": {
+        "value": "cmh-beer-api-apim-dev"
+      },
+      "apiManagementPublisherEmail": {
+        "value": "chhouse@microsoft.com"
+      },
+      "apiManagementPublisherName": {
+        "value": "Chris House"
+      },
+      "containerAppName": {
+        "value": "cmh-beer-api-aca-dev"
+      },
+      "containerName": {
+        "value": "beer-collection-api"
       }
     }
   }

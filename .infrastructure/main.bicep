@@ -8,6 +8,12 @@ param keyVaultName string
 param logAnalyticsWorkspaceName string
 param containerAppsEnvironmentName string
 param containerRegistryName string
+param apiManagementServiceName string
+param apiManagementPublisherEmail string
+param apiManagementPublisherName string
+param containerAppName string
+param containerName string
+param containerVersionTag string
 
 var cosmosDbDeploymentName = '${cosmosDbAccountName}-${buildId}'
 var cosmosDbDatabaseDeploymentName = '${cosmosDbDatabaseName}-${buildId}'
@@ -16,6 +22,8 @@ var keyVaultDeploymentName = '${keyVaultName}-${buildId}'
 var logAnalyticsWorkspaceDeploymentName = '${logAnalyticsWorkspaceName}-${buildId}'
 var containerAppsEnvironmentDeploymentName = '${containerAppsEnvironmentName}-${buildId}'
 var containerRegistryDeploymentName = '${containerRegistryName}-${buildId}'
+var apiManagementDeploymentName = '${apiManagementServiceName}-${buildId}'
+var containerAppDeploymentName = '${containerAppName}-${buildId}'
 
 module cosmosDb './modules/cosmosDbAccount.bicep' = {
   name: cosmosDbDeploymentName
@@ -59,6 +67,14 @@ module logAnalyticsWorkspace './modules/logAnalyticsWorkspace.bicep' = {
   }
 }
 
+module registry './modules/containerRegistry.bicep' = {
+  name: containerRegistryDeploymentName
+  params: {
+    region: region
+    containerRegistryName: containerRegistryName
+  }
+}
+
 module acaEnvironment './modules/containerAppsEnvironment.bicep' = {
   name: containerAppsEnvironmentDeploymentName
   params: {
@@ -68,10 +84,24 @@ module acaEnvironment './modules/containerAppsEnvironment.bicep' = {
   }
 }
 
-module registry './modules/containerRegistry.bicep' = {
-  name: containerRegistryDeploymentName
+module containerApp './modules/containerApp.bicep' = {
+  name: containerAppDeploymentName
+  params: {
+    containerAppEnvironmentId: acaEnvironment.outputs.id
+    containerAppName: containerAppName
+    containerName: containerName
+    containerVersion: containerVersionTag
+    region: region
+    registry: registry.outputs.name
+  }
+}
+
+module apiManagement './modules/apiManagement.bicep' = {
+  name: apiManagementDeploymentName
   params: {
     region: region
-    containerRegistryName: containerRegistryName
+    apiManagementServiceName: apiManagementServiceName
+    publisherEmail: apiManagementPublisherEmail
+    publisherName: apiManagementPublisherName
   }
 }
