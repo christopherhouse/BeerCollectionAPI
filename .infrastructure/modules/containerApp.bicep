@@ -40,6 +40,17 @@ resource containerApp 'Microsoft.App/containerApps@2022-11-01-preview' = {
         {
           image: containerImage
           name: 'beer-api'
+          probes: [
+            {
+              type: 'Liveness'
+              httpGet: {
+                path: '/healthz'
+                port: 80
+              }
+              initialDelaySeconds: 20
+              periodSeconds: 10
+            }
+          ]
         }
       ]
     }    

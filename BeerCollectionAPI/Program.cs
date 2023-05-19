@@ -1,3 +1,5 @@
+using BeerCollectionAPI.Probes;
+
 namespace BeerCollectionAPI;
 
 public class Program
@@ -12,6 +14,7 @@ public class Program
         // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
         builder.Services.AddEndpointsApiExplorer();
         builder.Services.AddSwaggerGen();
+        builder.Services.AddHealthChecks().AddCheck<HealthCheck>("Health Check");
 
         var app = builder.Build();
 
@@ -26,6 +29,7 @@ public class Program
 
         app.UseAuthorization();
 
+        app.MapHealthChecks("/healthz");
 
         app.MapControllers();
 
