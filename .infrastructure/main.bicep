@@ -13,7 +13,7 @@ param apiManagementPublisherEmail string
 param apiManagementPublisherName string
 param containerAppName string
 param containerName string
-param containerVersion string
+param containerTagVersion string
 
 var cosmosDbDeploymentName = '${cosmosDbAccountName}-${buildId}'
 var cosmosDbDatabaseDeploymentName = '${cosmosDbDatabaseName}-${buildId}'
