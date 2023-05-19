@@ -25,6 +25,10 @@ jobs:
       uses: azure/login@v1
       with:
         creds: ${{ secrets.AZURE_CREDENTIALS }}
+
+    - name: echo version
+      run: |
+        echo "Here is the version: ${{ inputs.containerVersionTag }}"        
     
     - name: Build and Push Image
       uses: azure/docker-login@v1

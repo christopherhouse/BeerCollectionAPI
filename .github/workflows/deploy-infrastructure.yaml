@@ -38,10 +38,6 @@ jobs:
       uses: azure/login@v1
       with:
         creds: ${{ secrets.AZURE_CREDENTIALS }}
-    
-    - name: echo version
-      run: |
-        echo "Here is the version: ${{ inputs.containerVersionTag }}"
 
     - name: Deploy Infrastructure
       uses: azure/arm-deploy@v1
