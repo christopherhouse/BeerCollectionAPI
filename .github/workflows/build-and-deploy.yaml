@@ -2,6 +2,9 @@ on:
   push:
   workflow_dispatch:
 
+env:
+  SHORT_SHA: ''
+
 name: Build and Deploy
 jobs:
   get-short-sha:
