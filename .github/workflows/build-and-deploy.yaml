@@ -9,6 +9,8 @@ jobs:
     outputs:
       short_sha: ${{ steps.bash-short-sha.outputs.short_sha }}
     steps:
+    - name: Checkout
+      uses: actions/checkout@v3
     - run: |
        echo "short_sha=$(git rev-parse --short HEAD)" >> $GITHUB_OUTPUT
        echo "here is the short sha: $short_sha"
