@@ -2,16 +2,16 @@ on:
   push:
   workflow_dispatch:
 
-env:
-  SHORT_SHA: ''
-
 name: Build and Deploy
 jobs:
   get-short-sha:
     runs-on: ubuntu-latest
+    outputs:
+      short_sha: ${{ steps.get-short-sha.outputs.short_sha }}
     steps:
     - run: |
-       echo "SHORT_SHA"=`git rev-parse --short HEAD` >> $GITHUB_ENV
+       echo "short_sha"=`git rev-parse --short HEAD` >> $GITHUB_OUTPUT
+      id: get-short-sha
  
   build-infrastructure:
     name: Build Infrastructure
@@ -24,7 +24,7 @@ jobs:
     uses: ./.github/workflows/build-and-push-container.yaml
     needs: get-short-sha
     with:
-      containerVersionTag: ${{ env.SHORT_SHA }}
+      containerVersionTag: ${{ needs.get-short-sha.outputs.short_sha }}
     secrets:
       AZURE_CREDENTIALS: ${{ secrets.AZURE_CREDENTIALS }}
       REGISTRY_LOGIN_SERVER: ${{ secrets.REGISTRY_LOGIN_SERVER }}
@@ -39,6 +39,6 @@ jobs:
       environment: development
       subscriptionId: ${{ vars.SUBSCRIPTION_ID }}
       resourceGroupName: ${{ vars.RESOURCE_GROUP_NAME }}
-      containerVersionTag: ${{ env.SHORT_SHA }}
+      containerVersionTag: ${{ needs.get-short-sha.outputs.short_sha }}
     secrets:
       AZURE_CREDENTIALS: ${{ secrets.AZURE_CREDENTIALS }}
