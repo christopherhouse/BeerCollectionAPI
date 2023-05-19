@@ -10,7 +10,8 @@ jobs:
       short_sha: ${{ steps.bash-short-sha.outputs.short_sha }}
     steps:
     - run: |
-       echo "sha_short=$(git rev-parse --short HEAD)" >> $GITHUB_OUTPUT
+       echo "short_sha=$(git rev-parse --short HEAD)" >> $GITHUB_OUTPUT
+       echo "here is the short sha: $sha_short"
       id: bash-short-sha
  
   build-infrastructure:
