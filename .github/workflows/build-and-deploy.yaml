@@ -19,6 +19,7 @@ jobs:
   build-and-push-container:
     name: Build and Push Container
     uses: ./.github/workflows/build-and-push-container.yaml
+    needs: get-short-sha
     with:
       containerVersionTag: ${{ env.SHORT_SHA }}
     secrets:
@@ -30,7 +31,7 @@ jobs:
   deploy-infrastructure-development:
     name: Deploy Infrastructure to Development
     uses: ./.github/workflows/deploy-infrastructure.yaml
-    needs: build-infrastructure 
+    needs: [build-infrastructure, get-short-sha]
     with:
       environment: development
       subscriptionId: ${{ vars.SUBSCRIPTION_ID }}
