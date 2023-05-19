@@ -1,5 +1,10 @@
 on:
   workflow_call:
+    inputs:
+      containerVersionTag: 
+        description: 'The container version tag to use.'
+        required: true
+        type: string
     secrets:
       AZURE_CREDENTIALS:
         required: true
@@ -21,10 +26,6 @@ jobs:
       with:
         creds: ${{ secrets.AZURE_CREDENTIALS }}
     
-    - run: |
-        ls -al .
-        ls -al ./BeerCollectionAPI
-
     - name: Build and Push Image
       uses: azure/docker-login@v1
       with:
@@ -33,11 +34,11 @@ jobs:
         password: ${{ secrets.REGISTRY_PASSWORD }}
 
     - run: |
-        docker build . -f BeerCollectionAPI/Dockerfile -t ${{ secrets.REGISTRY_LOGIN_SERVER }}/beer-collection-api:${{ github.sha }}
-        docker push ${{ secrets.REGISTRY_LOGIN_SERVER }}/beer-collection-api:${{ github.sha }}
+        docker build . -f BeerCollectionAPI/Dockerfile -t ${{ secrets.REGISTRY_LOGIN_SERVER }}/beer-collection-api:${{ inputs.containerVersionTag }}
+        docker push ${{ secrets.REGISTRY_LOGIN_SERVER }}/beer-collection-api:${{ inputs.containerVersionTag }}
 
     - run: |
-        echo ${{ github.sha }} >> ./container-version.txt
+        echo ${{ inputs.containerVersionTag }} >> ./container-version.txt
 
     - name: Publish Docker Version Artifact
       uses: actions/upload-artifact@v2

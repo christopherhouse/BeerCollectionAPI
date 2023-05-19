@@ -4,6 +4,12 @@ on:
 
 name: Build and Deploy
 jobs:
+  get-short-sha:
+    runs-on: ubuntu-latest
+    steps:
+    - run: |
+       echo "SHORT_SHA"=`git rev-parse --short HEAD` >> $GITHUB_ENV
+ 
   build-infrastructure:
     name: Build Infrastructure
     uses: ./.github/workflows/build-infrastructure.yaml
@@ -13,12 +19,13 @@ jobs:
   build-and-push-container:
     name: Build and Push Container
     uses: ./.github/workflows/build-and-push-container.yaml
+    with:
+      containerVersionTag: ${{ env.SHORT_SHA }}
     secrets:
       AZURE_CREDENTIALS: ${{ secrets.AZURE_CREDENTIALS }}
       REGISTRY_LOGIN_SERVER: ${{ secrets.REGISTRY_LOGIN_SERVER }}
       REGISTRY_USERNAME: ${{ secrets.REGISTRY_USERNAME }}
       REGISTRY_PASSWORD: ${{ secrets.REGISTRY_PASSWORD }}
-
 
   deploy-infrastructure-development:
     name: Deploy Infrastructure to Development
@@ -28,5 +35,6 @@ jobs:
       environment: development
       subscriptionId: ${{ vars.SUBSCRIPTION_ID }}
       resourceGroupName: ${{ vars.RESOURCE_GROUP_NAME }}
+      containerVersionTag: ${{ env.SHORT_SHA }}
     secrets:
       AZURE_CREDENTIALS: ${{ secrets.AZURE_CREDENTIALS }}
