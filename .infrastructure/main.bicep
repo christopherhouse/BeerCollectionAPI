@@ -57,6 +57,9 @@ module keyVault './modules/keyVault.bicep' = {
   params: {
     region: region
     keyVaultName: keyVaultName
+    applicationIds: [
+      containerApp.outputs.objectId
+    ]
   }
 }
 
