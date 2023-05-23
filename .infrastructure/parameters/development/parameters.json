@@ -12,7 +12,7 @@
         "value": "cmh-beer-api-db"
       },
       "cosmosDbContainerName": {
-        "value": "cmh-beer-api-container"
+        "value": "beers"
       },
       "partitionKeyPath": {
         "value": "/brewery"
