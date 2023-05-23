@@ -24,6 +24,7 @@ var containerAppsEnvironmentDeploymentName = '${containerAppsEnvironmentName}-${
 var containerRegistryDeploymentName = '${containerRegistryName}-${buildId}'
 var apiManagementDeploymentName = '${apiManagementServiceName}-${buildId}'
 var containerAppDeploymentName = '${containerAppName}-${buildId}'
+var secretsDeploymentName = 'secrets-{buildId}}'
 
 module cosmosDb './modules/cosmosDbAccount.bicep' = {
   name: cosmosDbDeploymentName
@@ -103,5 +104,13 @@ module apiManagement './modules/apiManagement.bicep' = {
     apiManagementServiceName: apiManagementServiceName
     publisherEmail: apiManagementPublisherEmail
     publisherName: apiManagementPublisherName
+  }
+}
+
+module secrets './modules/secrets.bicep' = {
+  name: secretsDeploymentName
+  params: {
+    keyVaultName: keyVault.outputs.name
+    cosmosDbName: cosmosDb.outputs.name
   }
 }
