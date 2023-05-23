@@ -1,5 +1,4 @@
-﻿using System.Text.Json.Serialization;
-using BeerCollectionAPI.Models.Requests;
+﻿using BeerCollectionAPI.Models.Requests;
 
 namespace BeerCollectionAPI.Data.Models;
 
