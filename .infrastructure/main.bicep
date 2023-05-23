@@ -24,7 +24,7 @@ var containerAppsEnvironmentDeploymentName = '${containerAppsEnvironmentName}-${
 var containerRegistryDeploymentName = '${containerRegistryName}-${buildId}'
 var apiManagementDeploymentName = '${apiManagementServiceName}-${buildId}'
 var containerAppDeploymentName = '${containerAppName}-${buildId}'
-var secretsDeploymentName = 'secrets-{buildId}}'
+var secretsDeploymentName = 'secrets-{buildId}'
 
 module cosmosDb './modules/cosmosDbAccount.bicep' = {
   name: cosmosDbDeploymentName
