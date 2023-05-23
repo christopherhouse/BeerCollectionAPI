@@ -38,3 +38,7 @@ resource keyVault 'Microsoft.KeyVault/vaults@2023-02-01' = {
       family: 'A'}
   }
 }
+
+output id string = keyVault.id
+output name string = keyVault.name
+output apiVersion string = keyVault.apiVersion
