@@ -1,4 +1,7 @@
+using System.Text.Json;
+using BeerCollectionAPI.Data;
 using BeerCollectionAPI.Probes;
+using Microsoft.EntityFrameworkCore;
 
 namespace BeerCollectionAPI;
 
@@ -10,12 +13,21 @@ public class Program
 
         // Add services to the container.
 
-        builder.Services.AddControllers();
+        builder.Services.AddControllers()
+            .AddJsonOptions(_ =>
+            {
+                _.JsonSerializerOptions.PropertyNamingPolicy = JsonNamingPolicy.CamelCase;
+                _.JsonSerializerOptions.WriteIndented = true;
+            });
+
         // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
         builder.Services.AddEndpointsApiExplorer();
         builder.Services.AddSwaggerGen();
         builder.Services.AddHealthChecks().AddCheck<HealthCheck>("Health Check");
-
+        builder.Services.AddDbContext<BeerCollectionContext>(options =>
+            options.UseCosmos(builder.Configuration["cosmosConfiguration:connectionString"],
+                builder.Configuration["cosmosConfiguration:databaseName"]));
+        
         var app = builder.Build();
 
         // Configure the HTTP request pipeline.
