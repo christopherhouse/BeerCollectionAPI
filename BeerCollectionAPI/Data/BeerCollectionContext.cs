@@ -10,4 +10,9 @@ public class BeerCollectionContext : DbContext
     }
 
     public DbSet<Beer> Beers { get; set; }
+
+    protected override void OnModelCreating(ModelBuilder modelBuilder)
+    {
+        modelBuilder.ApplyConfigurationsFromAssembly(typeof(BeerCollectionContext).Assembly);
+    }
 }

@@ -1,4 +1,5 @@
 ﻿using System.Text.Json.Serialization;
+using BeerCollectionAPI.Models.Requests;
 
 namespace BeerCollectionAPI.Data.Models;
 
@@ -21,4 +22,19 @@ public class Beer
     public decimal? Rating { get; set; }
 
     public int QuantityOnHand { get; set; }
+
+    public static Beer FromCreateBeerRequest(CreateBeerRequest request)
+    {
+        return new Beer
+        {
+            BeerName = request.BeerName,
+            Brewery = request.Brewery,
+            Style = request.Style,
+            ImagePath = request.ImagePath,
+            TastingNotes = request.TastingNotes,
+            Vintage = request.Vintage,
+            Rating = request.Rating,
+            QuantityOnHand = request.QuantityOnHand,
+        };
+    }
 }
