@@ -21,7 +21,7 @@ resource containerApp 'Microsoft.App/containerApps@2022-11-01-preview' = {
   identity: {
     type: 'UserAssigned'
     userAssignedIdentities: {
-      '${userAssignedManagedIdentityPrincipalId}': {}
+      '${userAssignedManagedIdentityId}': {}
     }
   }
   properties: {
@@ -50,7 +50,7 @@ resource containerApp 'Microsoft.App/containerApps@2022-11-01-preview' = {
         {
           name: 'cosmos-connection-string'
           keyVaultUrl: cosmosDbConnectionStringSecretUri
-          identity: userAssignedManagedIdentityId
+          identity: userAssignedManagedIdentityPrincipalId
         }
       ]      
     }
