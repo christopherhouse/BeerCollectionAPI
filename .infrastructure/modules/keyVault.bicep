@@ -56,3 +56,4 @@ resource keyVault 'Microsoft.KeyVault/vaults@2023-02-01' = {
 output id string = keyVault.id
 output name string = keyVault.name
 output apiVersion string = keyVault.apiVersion
+output keyVaultUri string = keyVault.properties.vaultUri

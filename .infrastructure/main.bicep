@@ -108,6 +108,7 @@ module containerApp './modules/containerApp.bicep' = {
     region: region
     registry: registry.outputs.name
     userAssignedManagedIdentityId: userAssignedManagedIdentity.outputs.id
+    keyVaultUri: keyVault.outputs.keyVaultUri
   }
 }
 
