@@ -30,6 +30,7 @@ var containerAppDeploymentName = '${containerAppName}-${buildId}'
 var secretsDeploymentName = 'secrets-${buildId}'
 var userAssignedManagedIdentityDeploymentName = '${userAssignedManagedIdentityName}-${buildId}'
 var redisCacheDeploymentName = '${redisCacheName}-${buildId}'
+var acrPullAssignmentDeploymentName = 'acrPullAssignment-${buildId}'
 
 module cosmosDb './modules/cosmosDbAccount.bicep' = {
   name: cosmosDbDeploymentName
@@ -89,6 +90,14 @@ module registry './modules/containerRegistry.bicep' = {
   params: {
     region: region
     containerRegistryName: containerRegistryName
+  }
+}
+
+module acrPullAssignment './modules/acrPullRoleAssignment.bicep' = {
+  name: acrPullAssignmentDeploymentName
+  params: {
+    containerRegistryName: registry.outputs.name
+    userAssignedIdentityPrincipalId: userAssignedManagedIdentity.outputs.principalId
   }
 }
 
