@@ -34,8 +34,7 @@ resource containerApp 'Microsoft.App/containerApps@2022-11-01-preview' = {
       registries: [
         {
           server: acr.properties.loginServer
-          username: acr.name
-          passwordSecretRef: 'acr-password'
+          identity: userAssignedManagedIdentityId
         }
       ]
       secrets: [
