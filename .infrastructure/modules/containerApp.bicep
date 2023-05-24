@@ -5,14 +5,9 @@ param registry string
 param containerName string
 param containerVersion string
 param userAssignedManagedIdentityId string
-// param userAssignedManagedIdentityName string
 param cosmosDbConnectionStringSecretUri string
 
 var containerImage = '${acr.properties.loginServer}/${containerName}:${containerVersion}'
-
-// resource identity 'Microsoft.ManagedIdentity/userAssignedIdentities@2023-01-31' existing = {
-//   name: userAssignedManagedIdentityName
-// }
 
 resource acr 'Microsoft.ContainerRegistry/registries@2023-01-01-preview' existing = {
   name: registry
