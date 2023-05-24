@@ -15,7 +15,9 @@ param containerAppName string
 param containerName string
 param containerVersionTag string
 param userAssignedManagedIdentityName string
+param redisCacheName string 
 
+// Variables for module deployment names
 var cosmosDbDeploymentName = '${cosmosDbAccountName}-${buildId}'
 var cosmosDbDatabaseDeploymentName = '${cosmosDbDatabaseName}-${buildId}'
 var cosmosDbContainerDeploymentName = '${cosmosDbContainerName}-${buildId}'
@@ -27,6 +29,7 @@ var apiManagementDeploymentName = '${apiManagementServiceName}-${buildId}'
 var containerAppDeploymentName = '${containerAppName}-${buildId}'
 var secretsDeploymentName = 'secrets-${buildId}'
 var userAssignedManagedIdentityDeploymentName = '${userAssignedManagedIdentityName}-${buildId}'
+var redisCacheDeploymentName = '${redisCacheName}-${buildId}'
 
 module cosmosDb './modules/cosmosDbAccount.bicep' = {
   name: cosmosDbDeploymentName
@@ -128,5 +131,13 @@ module secrets './modules/secrets.bicep' = {
   params: {
     keyVaultName: keyVault.outputs.name
     cosmosDbName: cosmosDb.outputs.name
+  }
+}
+
+module redis './modules/redis.bicep' = {
+  name: redisCacheDeploymentName
+  params: {
+    redisCacheName: redisCacheName
+    region: region
   }
 }
