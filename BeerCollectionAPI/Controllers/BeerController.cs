@@ -78,7 +78,7 @@ public class BeerController : ControllerBase
     {
         IActionResult result;
 
-        var beer = await _dbContext.FindAsync<Beer>(beerId);
+        var beer = await _dbContext.Beers.FirstOrDefaultAsync(_ => _.Id == beerId);
 
         if (beer != null)
         {
