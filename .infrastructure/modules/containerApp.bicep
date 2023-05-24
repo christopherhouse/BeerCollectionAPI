@@ -7,7 +7,6 @@ param containerVersion string
 param userAssignedManagedIdentityId string
 param cosmosDbConnectionStringSecretUri string
 param cosmosDbDatabaseName string
-param acrAdminCredsSecretUri string
 
 var containerImage = '${acr.properties.loginServer}/${containerName}:${containerVersion}'
 

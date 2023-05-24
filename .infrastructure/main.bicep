@@ -113,7 +113,6 @@ module containerApp './modules/containerApp.bicep' = {
     userAssignedManagedIdentityId: userAssignedManagedIdentity.outputs.id
     cosmosDbConnectionStringSecretUri: secrets.outputs.cosmosDbSecretUri
     cosmosDbDatabaseName: cosmosDbDatabase.outputs.name
-    acrAdminCredsSecretUri: secrets.outputs.acrAdminCredsSecretUri
   }
 }
 
