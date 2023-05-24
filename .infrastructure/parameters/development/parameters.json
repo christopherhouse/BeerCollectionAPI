@@ -43,6 +43,9 @@
       },
       "containerName": {
         "value": "beer-collection-api"
+      },
+      "userAssignedManagedIdentityName": {
+        "value": "cmh-beer-api-mi-dev"
       }
     }
   }

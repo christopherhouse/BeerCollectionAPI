@@ -14,6 +14,7 @@ param apiManagementPublisherName string
 param containerAppName string
 param containerName string
 param containerVersionTag string
+param userAssignedManagedIdentityName string
 
 var cosmosDbDeploymentName = '${cosmosDbAccountName}-${buildId}'
 var cosmosDbDatabaseDeploymentName = '${cosmosDbDatabaseName}-${buildId}'
@@ -25,6 +26,7 @@ var containerRegistryDeploymentName = '${containerRegistryName}-${buildId}'
 var apiManagementDeploymentName = '${apiManagementServiceName}-${buildId}'
 var containerAppDeploymentName = '${containerAppName}-${buildId}'
 var secretsDeploymentName = 'secrets-${buildId}'
+var userAssignedManagedIdentityDeploymentName = '${userAssignedManagedIdentityName}-${buildId}'
 
 module cosmosDb './modules/cosmosDbAccount.bicep' = {
   name: cosmosDbDeploymentName
@@ -52,6 +54,14 @@ module cosmosDbContainer './modules/cosmosDbContainer.bicep' = {
   }
 }
 
+module userAssignedManagedIdentity './modules/userAssignedManagedIdentity.bicep' = {
+  name: userAssignedManagedIdentityDeploymentName
+  params: {
+    region: region
+    name: userAssignedManagedIdentityName
+  }
+}
+
 module keyVault './modules/keyVault.bicep' = {
   name: keyVaultDeploymentName
   params: {
@@ -59,6 +69,7 @@ module keyVault './modules/keyVault.bicep' = {
     keyVaultName: keyVaultName
     applicationIds: [
       containerApp.outputs.objectId
+      userAssignedManagedIdentity.outputs.principalId
     ]
   }
 }
