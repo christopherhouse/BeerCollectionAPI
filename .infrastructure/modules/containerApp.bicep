@@ -58,6 +58,16 @@ resource containerApp 'Microsoft.App/containerApps@2022-11-01-preview' = {
         {
           image: containerImage
           name: 'beer-api'
+          env: [
+            {
+              name: 'cosmos-connection-string'
+              secretRef: 'cosmos-connection-string'
+            }
+            {
+              name: 'cosmos-database-name'
+              secretRef: 'cosmos-database-name'
+            }
+          ]
           probes: [
             {
               type: 'Liveness'
