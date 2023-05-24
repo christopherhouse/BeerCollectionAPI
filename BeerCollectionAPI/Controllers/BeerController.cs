@@ -71,7 +71,7 @@ public class BeerController : ControllerBase
         return result;
     }
 
-    [HttpDelete]
+    [HttpDelete("{beerId}")]
     [ProducesResponseType(StatusCodes.Status204NoContent)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
     public async Task<IActionResult> Delete(string beerId)
