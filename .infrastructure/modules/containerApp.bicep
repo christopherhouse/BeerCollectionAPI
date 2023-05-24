@@ -39,10 +39,6 @@ resource containerApp 'Microsoft.App/containerApps@2022-11-01-preview' = {
       ]
       secrets: [
         {
-          name: 'acr-password'
-          value: acr.listCredentials().passwords[0].value
-        }
-        {
           name: 'cosmos-database-name'
           value: cosmosDbDatabaseName
         }
