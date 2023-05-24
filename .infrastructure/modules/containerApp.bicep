@@ -7,7 +7,6 @@ param containerVersion string
 param userAssignedManagedIdentityId string
 param cosmosDbConnectionStringSecretUri string
 param cosmosDbDatabaseName string
-param userAssignedManagedIdentityPrincipalId string 
 
 var containerImage = '${acr.properties.loginServer}/${containerName}:${containerVersion}'
 
@@ -35,7 +34,7 @@ resource containerApp 'Microsoft.App/containerApps@2022-11-01-preview' = {
       registries: [
         {
           server: acr.properties.loginServer
-          identity: userAssignedManagedIdentityPrincipalId
+          identity: userAssignedManagedIdentityId
         }
       ]
       secrets: [
@@ -50,7 +49,7 @@ resource containerApp 'Microsoft.App/containerApps@2022-11-01-preview' = {
         {
           name: 'cosmos-connection-string'
           keyVaultUrl: cosmosDbConnectionStringSecretUri
-          identity: userAssignedManagedIdentityPrincipalId
+          identity: userAssignedManagedIdentityId
         }
       ]      
     }
