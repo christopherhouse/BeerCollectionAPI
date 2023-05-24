@@ -5,10 +5,10 @@ param registry string
 param containerName string
 param containerVersion string
 param userAssignedManagedIdentityId string
-//param cosmosDbConnectionStringSecretUri string
-param keyVaultUri string
+param cosmosDbConnectionStringSecretUri string
+
 var containerImage = '${acr.properties.loginServer}/${containerName}:${containerVersion}'
-// https://cmh-beer-api-kv-dev.vault.azure.net/secrets/COSMOS-DB-CONNECTION-STRING/
+
 resource acr 'Microsoft.ContainerRegistry/registries@2023-01-01-preview' existing = {
   name: registry
 }
@@ -43,8 +43,7 @@ resource containerApp 'Microsoft.App/containerApps@2022-11-01-preview' = {
         }
         {
           name: 'cosmosConnectionString'
-          keyVaultUrl: keyVaultUri
-          value: 'COSMOS-DB-CONNECTION-STRING'
+          keyVaultUrl: cosmosDbConnectionStringSecretUri
         }
       ]      
     }
