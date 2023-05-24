@@ -24,7 +24,7 @@ resource containerApp 'Microsoft.App/containerApps@2022-11-01-preview' = {
   identity: {
     type: 'UserAssigned'
     userAssignedIdentities: {
-      '${identity.id}': {}
+      '${userAssignedManagedIdentityId}': {}
     }
   }
   properties: {

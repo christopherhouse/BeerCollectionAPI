@@ -16,3 +16,5 @@ resource cosmosDbConnectionString 'Microsoft.KeyVault/vaults/secrets@2023-02-01'
     value: cosmosDb.listConnectionStrings().connectionStrings[0].connectionString
   }
 }
+
+output cosmosDbSecretUri string = cosmosDbConnectionString.properties.secretUri
