@@ -7,11 +7,16 @@ resource acr 'Microsoft.ContainerRegistry/registries@2023-01-01-preview' existin
   name: containerRegistryName
 }
 
+resource roleDefintion 'Microsoft.Authorization/roleDefinitions@2022-04-01' existing = {
+  scope: resourceGroup()
+  name: acrPullRoleDefinitionId
+}
+
 resource roleAssignment 'Microsoft.Authorization/roleAssignments@2022-04-01' = {
   scope: acr
   name: guid(acr.id, userAssignedIdentityPrincipalId, acrPullRoleDefinitionId)
   properties: {
-    roleDefinitionId: acrPullRoleDefinitionId
+    roleDefinitionId: roleDefintion.id
     principalId: userAssignedIdentityPrincipalId
     principalType: 'ServicePrincipal'
   }
