@@ -7,6 +7,7 @@ param containerVersion string
 param userAssignedManagedIdentityId string
 param cosmosDbConnectionStringSecretUri string
 param cosmosDbDatabaseName string
+param userAssignedManagedIdentityPrincipalId string 
 
 var containerImage = '${acr.properties.loginServer}/${containerName}:${containerVersion}'
 
@@ -20,7 +21,7 @@ resource containerApp 'Microsoft.App/containerApps@2022-11-01-preview' = {
   identity: {
     type: 'UserAssigned'
     userAssignedIdentities: {
-      '${userAssignedManagedIdentityId}': {}
+      '${userAssignedManagedIdentityPrincipalId}': {}
     }
   }
   properties: {
@@ -34,7 +35,7 @@ resource containerApp 'Microsoft.App/containerApps@2022-11-01-preview' = {
       registries: [
         {
           server: acr.properties.loginServer
-          identity: userAssignedManagedIdentityId
+          identity: userAssignedManagedIdentityPrincipalId
         }
       ]
       secrets: [
