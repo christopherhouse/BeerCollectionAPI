@@ -68,7 +68,6 @@ module keyVault './modules/keyVault.bicep' = {
     region: region
     keyVaultName: keyVaultName
     applicationIds: [
-      containerApp.outputs.objectId
       userAssignedManagedIdentity.outputs.principalId
     ]
   }
@@ -108,6 +107,7 @@ module containerApp './modules/containerApp.bicep' = {
     containerVersion: containerVersionTag
     region: region
     registry: registry.outputs.name
+    userAssignedManagedIdentityId: userAssignedManagedIdentity.outputs.id
   }
 }
 

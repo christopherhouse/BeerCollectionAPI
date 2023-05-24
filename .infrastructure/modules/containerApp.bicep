@@ -4,6 +4,7 @@ param containerAppEnvironmentId string
 param registry string
 param containerName string
 param containerVersion string
+param userAssignedManagedIdentityId string
 
 var containerImage = '${acr.properties.loginServer}/${containerName}:${containerVersion}'
 
@@ -14,6 +15,12 @@ resource acr 'Microsoft.ContainerRegistry/registries@2023-01-01-preview' existin
 resource containerApp 'Microsoft.App/containerApps@2022-11-01-preview' = {
   name: containerAppName
   location: region
+  identity: {
+    type: 'UserAssigned'
+    userAssignedIdentities: {
+      '${userAssignedManagedIdentityId}': {}
+    }
+  }
   properties: {
     managedEnvironmentId: containerAppEnvironmentId
     configuration: {
@@ -60,4 +67,3 @@ resource containerApp 'Microsoft.App/containerApps@2022-11-01-preview' = {
 output id string = containerApp.id
 output name string = containerApp.name
 output apiVersion string = containerApp.apiVersion
-output objectId string = containerApp.identity.principalId
