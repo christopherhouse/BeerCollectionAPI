@@ -109,6 +109,7 @@ module containerApp './modules/containerApp.bicep' = {
     registry: registry.outputs.name
     userAssignedManagedIdentityId: userAssignedManagedIdentity.outputs.id
     cosmosDbConnectionStringSecretUri: secrets.outputs.cosmosDbSecretUri
+    cosmosDbDatabaseName: cosmosDbDatabase.outputs.name
   }
 }
 
