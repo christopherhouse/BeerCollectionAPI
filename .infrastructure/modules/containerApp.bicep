@@ -47,7 +47,7 @@ resource containerApp 'Microsoft.App/containerApps@2022-11-01-preview' = {
           value: acr.listCredentials().passwords[0].value
         }
         {
-          name: 'cosmosConnectionString'
+          name: 'cosmos-connection-string'
           keyVaultUrl: cosmosDbConnectionStringSecretUri
           identity: userAssignedManagedIdentityId
         }
