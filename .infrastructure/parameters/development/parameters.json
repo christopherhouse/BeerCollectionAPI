@@ -43,6 +43,12 @@
       },
       "containerName": {
         "value": "beer-collection-api"
+      },
+      "userAssignedManagedIdentityName": {
+        "value": "cmh-beer-api-mi-dev"
+      },
+      "redisCacheName": {
+        "value": "cmh-beer-api-rc-dev"
       }
     }
   }

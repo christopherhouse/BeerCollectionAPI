@@ -71,14 +71,14 @@ public class BeerController : ControllerBase
         return result;
     }
 
-    [HttpDelete]
+    [HttpDelete("{beerId}")]
     [ProducesResponseType(StatusCodes.Status204NoContent)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
     public async Task<IActionResult> Delete(string beerId)
     {
         IActionResult result;
 
-        var beer = await _dbContext.FindAsync<Beer>(beerId);
+        var beer = await _dbContext.Beers.FirstOrDefaultAsync(_ => _.Id == beerId);
 
         if (beer != null)
         {

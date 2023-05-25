@@ -4,6 +4,9 @@ param containerAppEnvironmentId string
 param registry string
 param containerName string
 param containerVersion string
+param userAssignedManagedIdentityId string
+param cosmosDbConnectionStringSecretUri string
+param cosmosDbDatabaseName string
 
 var containerImage = '${acr.properties.loginServer}/${containerName}:${containerVersion}'
 
@@ -14,9 +17,16 @@ resource acr 'Microsoft.ContainerRegistry/registries@2023-01-01-preview' existin
 resource containerApp 'Microsoft.App/containerApps@2022-11-01-preview' = {
   name: containerAppName
   location: region
+  identity: {
+    type: 'UserAssigned'
+    userAssignedIdentities: {
+      '${userAssignedManagedIdentityId}': {}
+    }
+  }
   properties: {
     managedEnvironmentId: containerAppEnvironmentId
     configuration: {
+      activeRevisionsMode: 'Multiple'
       ingress: {
         targetPort: 80
         external: true
@@ -24,14 +34,18 @@ resource containerApp 'Microsoft.App/containerApps@2022-11-01-preview' = {
       registries: [
         {
           server: acr.properties.loginServer
-          username: acr.name
-          passwordSecretRef: 'acr-password'
+          identity: userAssignedManagedIdentityId
         }
       ]
       secrets: [
         {
-          name: 'acr-password'
-          value: acr.listCredentials().passwords[0].value
+          name: 'cosmos-database-name'
+          value: cosmosDbDatabaseName
+        }
+        {
+          name: 'cosmos-connection-string'
+          keyVaultUrl: cosmosDbConnectionStringSecretUri
+          identity: userAssignedManagedIdentityId
         }
       ]      
     }
@@ -40,6 +54,16 @@ resource containerApp 'Microsoft.App/containerApps@2022-11-01-preview' = {
         {
           image: containerImage
           name: 'beer-api'
+          env: [
+            {
+              name: 'cosmos-connection-string'
+              secretRef: 'cosmos-connection-string'
+            }
+            {
+              name: 'cosmos-database-name'
+              secretRef: 'cosmos-database-name'
+            }
+          ]
           probes: [
             {
               type: 'Liveness'
@@ -56,3 +80,7 @@ resource containerApp 'Microsoft.App/containerApps@2022-11-01-preview' = {
     }    
   }
 }
+
+output id string = containerApp.id
+output name string = containerApp.name
+output apiVersion string = containerApp.apiVersion

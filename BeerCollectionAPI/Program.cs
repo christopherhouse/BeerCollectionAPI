@@ -25,18 +25,15 @@ public class Program
         builder.Services.AddSwaggerGen();
         builder.Services.AddHealthChecks().AddCheck<HealthCheck>("Health Check");
         builder.Services.AddDbContext<BeerCollectionContext>(options =>
-            options.UseCosmos(builder.Configuration["cosmosConfiguration:connectionString"],
-                builder.Configuration["cosmosConfiguration:databaseName"]));
+            options.UseCosmos(builder.Configuration["cosmos-connection-string"],
+                builder.Configuration["cosmos-database-name"]));
         
         var app = builder.Build();
 
         // Configure the HTTP request pipeline.
-        if (app.Environment.IsDevelopment())
-        {
-            app.UseSwagger();
-            app.UseSwaggerUI();
-        }
-
+        app.UseSwagger();
+        app.UseSwaggerUI();
+        
         app.UseHttpsRedirection();
 
         app.UseAuthorization();
