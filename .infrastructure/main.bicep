@@ -90,6 +90,7 @@ module keyVault './modules/keyVault.bicep' = {
     keyVaultName: keyVaultName
     applicationIds: [
       userAssignedManagedIdentity.outputs.principalId
+      apiManagement.outputs.principalId
     ]
     tags: tags
   }

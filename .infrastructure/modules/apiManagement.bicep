@@ -8,6 +8,9 @@ resource apim 'Microsoft.ApiManagement/service@2022-09-01-preview' = {
   name: apiManagementServiceName
   location: region
   tags: tags
+  identity: {
+    type: 'SystemAssigned'
+  }
   sku: {
     name: 'Developer'
     capacity: 1
@@ -20,3 +23,4 @@ resource apim 'Microsoft.ApiManagement/service@2022-09-01-preview' = {
 
 output id string = apim.id
 output name string = apim.name
+output principalId string = apim.identity.principalId
