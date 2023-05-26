@@ -1,0 +1,10 @@
+{
+  "properties": {
+    "credentials": {
+      "instrumentationKey": "{{Logger-Credentials--646e3d5a5b675d1a64c37a3f}}"
+    },
+    "isBuffered": true,
+    "loggerType": "applicationInsights",
+    "resourceId": "/subscriptions/e1f57a36-4892-4716-9a3f-661432b39dbe/resourceGroups/LAS/providers/microsoft.insights/components/cmh-las-std"
+  }
+}

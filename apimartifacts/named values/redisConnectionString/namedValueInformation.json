@@ -1,0 +1,10 @@
+{
+  "properties": {
+    "displayName": "redisConnectionString",
+    "keyVault": {
+      "secretIdentifier": "https://cmh-beer-api-kv-dev.vault.azure.net/secrets/REDIS-CONNECTION-STRING"
+    },
+    "secret": true,
+    "tags": []
+  }
+}

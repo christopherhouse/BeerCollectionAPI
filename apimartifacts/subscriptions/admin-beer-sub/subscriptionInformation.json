@@ -1,0 +1,8 @@
+{
+  "properties": {
+    "displayName": "Admin - Beer Collection",
+    "allowTracing": false,
+    "scope": "/apis/beercollectionapi",
+    "state": "active"
+  }
+}
