@@ -40,7 +40,7 @@ var apimAppInsightsDeploymentName = '${apimAppInsightsName}-${buildId}'
 
 var tags = {
   Environment: environmentName
-  Deployment_Date: deploymentDate
+  Last_Deployment_Date: deploymentDate
   Owner: 'chhouse@microsoft.com'
   Build_ID: buildId
 }

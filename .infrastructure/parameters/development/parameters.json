@@ -55,6 +55,9 @@
       },
       "containerAppAppInsightsName": {
         "value": "cmh-beer-api-aca-ai-dev"
+      },
+      "environmentName": {
+        "value": "development"
       }
     }
   }
