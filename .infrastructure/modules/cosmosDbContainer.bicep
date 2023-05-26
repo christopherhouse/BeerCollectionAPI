@@ -2,6 +2,7 @@ param cosmosDbContainerName string
 param partitionKeyPath string
 param cosmosDbAccountName string
 param cosmosDbDatabaseName string
+param tags object
 
 resource cosmosDbAccount 'Microsoft.DocumentDB/databaseAccounts@2022-11-15' existing = {
   name: cosmosDbAccountName
@@ -16,6 +17,7 @@ resource cosmosDbDatabase 'Microsoft.DocumentDB/databaseAccounts/sqlDatabases@20
 resource cosmosDbContainer 'Microsoft.DocumentDB/databaseAccounts/sqlDatabases/containers@2022-11-15' = {
   name: cosmosDbContainerName
   parent: cosmosDbDatabase
+  tags: tags
   properties: {
     resource: {
       id: cosmosDbContainerName

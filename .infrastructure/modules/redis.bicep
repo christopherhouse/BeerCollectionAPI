@@ -1,9 +1,11 @@
 param redisCacheName string
 param region string
+param tags object
 
 resource redis 'Microsoft.Cache/redis@2022-06-01' = {
   name: redisCacheName
   location: region
+  tags: tags
   properties: {
     enableNonSslPort: false
     minimumTlsVersion: '1.2'
@@ -14,3 +16,7 @@ resource redis 'Microsoft.Cache/redis@2022-06-01' = {
     }
   }
 }
+
+output id string = redis.id
+output name string = redis.name
+output apiVersion string = redis.apiVersion

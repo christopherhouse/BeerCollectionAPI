@@ -3,6 +3,8 @@ param cosmosDbName string
 param containerRegistryName string
 param apimAppInsightsName string
 param containerAppsAppInsightsName string
+param redisCacheName string
+param tags object
 
 resource keyVault 'Microsoft.KeyVault/vaults@2018-02-14' existing = {
   name: keyVaultName
@@ -24,9 +26,14 @@ resource containerAppsAppInsights 'Microsoft.Insights/components@2020-02-02-prev
   name: containerAppsAppInsightsName
 }
 
+resource redisCache 'Microsoft.Cache/redis@2022-06-01' existing = {
+  name: redisCacheName
+}
+
 resource cosmosDbConnectionString 'Microsoft.KeyVault/vaults/secrets@2023-02-01' = {
   name: 'COSMOS-DB-CONNECTION-STRING'
   parent: keyVault
+  tags: tags
   properties: {
     value: cosmosDb.listConnectionStrings().connectionStrings[0].connectionString
   }
@@ -35,6 +42,7 @@ resource cosmosDbConnectionString 'Microsoft.KeyVault/vaults/secrets@2023-02-01'
 resource acr 'Microsoft.KeyVault/vaults/secrets@2023-02-01' = {
   name: 'ACR-PASSWORD'
   parent: keyVault
+  tags: tags
   properties: {
     value: containerRegistry.listCredentials().passwords[0].value
   }
@@ -43,6 +51,7 @@ resource acr 'Microsoft.KeyVault/vaults/secrets@2023-02-01' = {
 resource apimAppInsightsKey 'Microsoft.KeyVault/vaults/secrets@2023-02-01' = {
   name: 'APIM-APPINSIGHTS-INSTRUMENTATION-KEY'
   parent: keyVault
+  tags: tags
   properties: {
     value: apimAppInsights.properties.InstrumentationKey
   }
@@ -51,8 +60,18 @@ resource apimAppInsightsKey 'Microsoft.KeyVault/vaults/secrets@2023-02-01' = {
 resource acaAppInsightsConnectionString 'Microsoft.KeyVault/vaults/secrets@2023-02-01' = {
   name: 'ACA-APPINSIGHTS-CONNECTION-STRING'
   parent: keyVault
+  tags: tags
   properties: {
     value: containerAppsAppInsights.properties.InstrumentationKey
+  }
+}
+
+resource redisSecret 'Microsoft.KeyVault/vaults/secrets@2023-02-01' = {
+  name: 'REDIS-CONNECTION-STRING'
+  parent: keyVault
+  tags: tags
+  properties: {
+    value: '${redisCache.properties.hostName}:${redisCache.properties.sslPort},password=${redisCache.properties.accessKeys.primaryKey},ssl=True,abortConnect=False'
   }
 }
 

@@ -2,10 +2,12 @@ param apiManagementServiceName string
 param publisherEmail string
 param publisherName string
 param region string
+param tags object
 
 resource apim 'Microsoft.ApiManagement/service@2022-09-01-preview' = {
   name: apiManagementServiceName
   location: region
+  tags: tags
   sku: {
     name: 'Developer'
     capacity: 1
