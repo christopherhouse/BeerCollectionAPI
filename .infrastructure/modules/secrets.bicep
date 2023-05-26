@@ -71,7 +71,7 @@ resource redisSecret 'Microsoft.KeyVault/vaults/secrets@2023-02-01' = {
   parent: keyVault
   tags: tags
   properties: {
-    value: '${redisCache.properties.hostName}:${redisCache.properties.sslPort},password=${redisCache.properties.accessKeys.primaryKey},ssl=True,abortConnect=False'
+    value: '${redisCache.properties.hostName}:${redisCache.properties.sslPort},password=${redisCache.listKeys().primaryKey},ssl=True,abortConnect=False'
   }
 }
 
