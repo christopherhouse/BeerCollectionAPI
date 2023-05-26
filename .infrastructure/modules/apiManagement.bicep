@@ -2,6 +2,7 @@ param apiManagementServiceName string
 param publisherEmail string
 param publisherName string
 param region string
+param userAssignedManagedIdentityId string
 param tags object
 
 resource apim 'Microsoft.ApiManagement/service@2022-09-01-preview' = {
@@ -9,7 +10,10 @@ resource apim 'Microsoft.ApiManagement/service@2022-09-01-preview' = {
   location: region
   tags: tags
   identity: {
-    type: 'SystemAssigned'
+    type: 'UserAssigned'
+    userAssignedIdentities: {
+      '${userAssignedManagedIdentityId}': {}
+    }
   }
   sku: {
     name: 'Developer'

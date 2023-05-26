@@ -44,7 +44,7 @@
       "containerName": {
         "value": "beer-collection-api"
       },
-      "userAssignedManagedIdentityName": {
+      "containerAppUserAssignedManagedIdentityName": {
         "value": "cmh-beer-api-mi-dev"
       },
       "redisCacheName": {
@@ -58,6 +58,9 @@
       },
       "environmentName": {
         "value": "development"
+      },
+      "apimUserAssignedManagedIdentityName": {
+        "value": "cmh-beer-api-apim-mi-dev"
       }
     }
   }

@@ -14,11 +14,12 @@ param apiManagementPublisherName string
 param containerAppName string
 param containerName string
 param containerVersionTag string
-param userAssignedManagedIdentityName string
+param containerAppUserAssignedManagedIdentityName string
 param redisCacheName string
 param containerAppAppInsightsName string
 param apimAppInsightsName string
 param environmentName string
+param apimUserAssignedManagedIdentityName string
 param deploymentDate string = utcNow('yyyy-MM-ddTHH:mm:ssZ')
 
 // Variables for module deployment names
@@ -32,11 +33,12 @@ var containerRegistryDeploymentName = '${containerRegistryName}-${buildId}'
 var apiManagementDeploymentName = '${apiManagementServiceName}-${buildId}'
 var containerAppDeploymentName = '${containerAppName}-${buildId}'
 var secretsDeploymentName = 'secrets-${buildId}'
-var userAssignedManagedIdentityDeploymentName = '${userAssignedManagedIdentityName}-${buildId}'
+var containerAppUserAssignedManagedIdentityDeploymentName = '${containerAppUserAssignedManagedIdentityName}-${buildId}'
 var redisCacheDeploymentName = '${redisCacheName}-${buildId}'
 var acrPullAssignmentDeploymentName = 'acrPullAssignment-${buildId}'
 var containerAppAppInsightsDeploymentName = '${containerAppAppInsightsName}-${buildId}'
 var apimAppInsightsDeploymentName = '${apimAppInsightsName}-${buildId}'
+var apimUserAssignedManagedIdentityDeploymentName = '${apimUserAssignedManagedIdentityName}-${buildId}'
 
 var tags = {
   Environment: environmentName
@@ -74,11 +76,20 @@ module cosmosDbContainer './modules/cosmosDbContainer.bicep' = {
   }
 }
 
-module userAssignedManagedIdentity './modules/userAssignedManagedIdentity.bicep' = {
-  name: userAssignedManagedIdentityDeploymentName
+module containerAppUserAssignedManagedIdentity './modules/userAssignedManagedIdentity.bicep' = {
+  name: containerAppUserAssignedManagedIdentityDeploymentName
   params: {
     region: region
-    name: userAssignedManagedIdentityName
+    name: containerAppUserAssignedManagedIdentityDeploymentName
+    tags: tags
+  }
+}
+
+module apimUserAssignedManagedIdentity './modules/userAssignedManagedIdentity.bicep' = {
+  name: apimUserAssignedManagedIdentityDeploymentName
+  params: {
+    region: region
+    name: apimUserAssignedManagedIdentityName
     tags: tags
   }
 }
@@ -89,8 +100,8 @@ module keyVault './modules/keyVault.bicep' = {
     region: region
     keyVaultName: keyVaultName
     applicationIds: [
-      userAssignedManagedIdentity.outputs.principalId
-      apiManagement.outputs.principalId
+      containerAppUserAssignedManagedIdentity.outputs.principalId
+      apimUserAssignedManagedIdentity.outputs.principalId
     ]
     tags: tags
   }
@@ -118,7 +129,7 @@ module acrPullAssignment './modules/acrPullRoleAssignment.bicep' = {
   name: acrPullAssignmentDeploymentName
   params: {
     containerRegistryName: registry.outputs.name
-    userAssignedIdentityPrincipalId: userAssignedManagedIdentity.outputs.principalId
+    userAssignedIdentityPrincipalId: containerAppUserAssignedManagedIdentity.outputs.principalId
   }
 }
 
@@ -141,7 +152,7 @@ module containerApp './modules/containerApp.bicep' = {
     containerVersion: containerVersionTag
     region: region
     registry: registry.outputs.name
-    userAssignedManagedIdentityId: userAssignedManagedIdentity.outputs.id
+    userAssignedManagedIdentityId: containerAppUserAssignedManagedIdentity.outputs.id
     cosmosDbConnectionStringSecretUri: secrets.outputs.cosmosDbSecretUri
     cosmosDbDatabaseName: cosmosDbDatabase.outputs.name
     tags: tags
@@ -155,6 +166,7 @@ module apiManagement './modules/apiManagement.bicep' = {
     apiManagementServiceName: apiManagementServiceName
     publisherEmail: apiManagementPublisherEmail
     publisherName: apiManagementPublisherName
+    userAssignedManagedIdentityId: apimUserAssignedManagedIdentity.outputs.id
     tags: tags
   }
 }
