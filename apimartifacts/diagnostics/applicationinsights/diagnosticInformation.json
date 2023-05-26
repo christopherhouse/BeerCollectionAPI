@@ -1,0 +1,36 @@
+{
+  "properties": {
+    "alwaysLog": "allErrors",
+    "backend": {
+      "request": {
+        "dataMasking": {
+          "queryParams": [
+            {
+              "mode": "Hide",
+              "value": "*"
+            }
+          ]
+        }
+      }
+    },
+    "frontend": {
+      "request": {
+        "dataMasking": {
+          "queryParams": [
+            {
+              "mode": "Hide",
+              "value": "*"
+            }
+          ]
+        }
+      }
+    },
+    "httpCorrelationProtocol": "Legacy",
+    "logClientIp": true,
+    "loggerId": "/subscriptions/e1f57a36-4892-4716-9a3f-661432b39dbe/resourceGroups/BEER-API/providers/Microsoft.ApiManagement/service/cmhapimcons/loggers/cmh-las-std",
+    "sampling": {
+      "percentage": 100,
+      "samplingType": "Fixed"
+    }
+  }
+}

@@ -1,0 +1,8 @@
+{
+  "properties": {
+    "displayName": "azure-resourcegroup",
+    "secret": false,
+    "tags": [],
+    "value": "BEER-API"
+  }
+}
