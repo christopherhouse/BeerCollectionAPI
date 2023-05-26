@@ -15,7 +15,9 @@ param containerAppName string
 param containerName string
 param containerVersionTag string
 param userAssignedManagedIdentityName string
-param redisCacheName string 
+param redisCacheName string
+param containerAppAppInsightsName string
+param apimAppInsightsName string
 
 // Variables for module deployment names
 var cosmosDbDeploymentName = '${cosmosDbAccountName}-${buildId}'
@@ -31,6 +33,8 @@ var secretsDeploymentName = 'secrets-${buildId}'
 var userAssignedManagedIdentityDeploymentName = '${userAssignedManagedIdentityName}-${buildId}'
 var redisCacheDeploymentName = '${redisCacheName}-${buildId}'
 var acrPullAssignmentDeploymentName = 'acrPullAssignment-${buildId}'
+var containerAppAppInsightsDeploymentName = '${containerAppAppInsightsName}-${buildId}'
+var apimAppInsightsDeploymentName = '${apimAppInsightsName}-${buildId}'
 
 module cosmosDb './modules/cosmosDbAccount.bicep' = {
   name: cosmosDbDeploymentName
@@ -148,6 +152,24 @@ module redis './modules/redis.bicep' = {
   name: redisCacheDeploymentName
   params: {
     redisCacheName: redisCacheName
+    region: region
+  }
+}
+
+module appInsightsApim './modules/applicationInsights.bicep' = {
+  name: apimAppInsightsDeploymentName
+  params:{
+    appInsightsName: apimAppInsightsName
+    logAnalyticsWorkspaceResourceId: logAnalyticsWorkspace.outputs.id
+    region: region
+  }
+}
+
+module appInsightsContainerApp './modules/applicationInsights.bicep' = {
+  name: containerAppAppInsightsDeploymentName
+  params:{
+    appInsightsName: containerAppAppInsightsName
+    logAnalyticsWorkspaceResourceId: logAnalyticsWorkspace.outputs.id
     region: region
   }
 }
