@@ -50,7 +50,7 @@
       "redisCacheName": {
         "value": "cmh-beer-api-rc-dev"
       },
-      "apiAppInsightsName": {
+      "apimAppInsightsName": {
         "value": "cmh-beer-api-apim-ai-dev"
       },
       "containerAppAppInsightsName": {
