@@ -145,6 +145,8 @@ module secrets './modules/secrets.bicep' = {
     keyVaultName: keyVault.outputs.name
     cosmosDbName: cosmosDb.outputs.name
     containerRegistryName: registry.outputs.name
+    apimAppInsightsName: appInsightsApim.outputs.name
+    containerAppsAppInsightsName: appInsightsContainerApp.outputs.name
   }
 }
 
