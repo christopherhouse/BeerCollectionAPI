@@ -80,7 +80,7 @@ module containerAppUserAssignedManagedIdentity './modules/userAssignedManagedIde
   name: containerAppUserAssignedManagedIdentityDeploymentName
   params: {
     region: region
-    name: containerAppUserAssignedManagedIdentityDeploymentName
+    name: containerAppUserAssignedManagedIdentityName
     tags: tags
   }
 }
