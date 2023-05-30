@@ -1,0 +1,10 @@
+{
+  "properties": {
+    "credentials": {
+      "instrumentationKey": "{{Logger-Credentials--6470d3df830b57142c9f51eb}}"
+    },
+    "isBuffered": true,
+    "loggerType": "applicationInsights",
+    "resourceId": "/subscriptions/e1f57a36-4892-4716-9a3f-661432b39dbe/resourceGroups/BEER-API/providers/Microsoft.Insights/components/cmh-beer-api-apim-ai-dev"
+  }
+}
