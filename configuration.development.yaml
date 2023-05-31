@@ -1,1 +1,10 @@
 apimServiceName: cmh-beer-api-apim-dev
+namedValues:
+- name: 6470d3df830b57142c9f51ea
+  properties:
+    keyVault:
+      identityClientId: 9f3dcbdc-00e8-48a9-a43c-af1474038b74
+- name: redisConnectionString
+  properties:
+    keyVault:
+      identityClientId: 9f3dcbdc-00e8-48a9-a43c-af1474038b74
