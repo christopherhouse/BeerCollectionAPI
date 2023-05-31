@@ -1,0 +1,20 @@
+{
+  "properties": {
+    "apiRevision": "2",
+    "apiRevisionDescription": "style search",
+    "apiVersion": "2023-05-31",
+    "apiVersionSetId": "/subscriptions/e1f57a36-4892-4716-9a3f-661432b39dbe/resourceGroups/BEER-API/providers/Microsoft.ApiManagement/service/cmhapimcons/apiVersionSets/646e345cd140cb8274d05b6d",
+    "authenticationSettings": {},
+    "displayName": "BeerCollectionAPI",
+    "path": "beercollection",
+    "protocols": [
+      "https"
+    ],
+    "serviceUrl": "https://cmh-beer-api-aca-dev.lemonwave-24e05d57.eastus.azurecontainerapps.io/",
+    "subscriptionKeyParameterNames": {
+      "header": "Ocp-Apim-Subscription-Key",
+      "query": "subscription-key"
+    },
+    "subscriptionRequired": true
+  }
+}
