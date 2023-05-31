@@ -1,0 +1,19 @@
+{
+  "properties": {
+    "apiRevision": "1",
+    "authenticationSettings": {},
+    "description": "",
+    "displayName": "Chuck",
+    "isCurrent": true,
+    "path": "chuck",
+    "protocols": [
+      "https"
+    ],
+    "serviceUrl": "https://api.chucknorris.io",
+    "subscriptionKeyParameterNames": {
+      "header": "Ocp-Apim-Subscription-Key",
+      "query": "subscription-key"
+    },
+    "subscriptionRequired": true
+  }
+}
