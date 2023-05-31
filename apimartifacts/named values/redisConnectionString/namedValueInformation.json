@@ -2,6 +2,7 @@
   "properties": {
     "displayName": "redisConnectionString",
     "keyVault": {
+      "identityClientId": "069ece17-015a-4190-8bcd-9ed39d77c906",
       "secretIdentifier": "https://cmh-beer-api-kv-dev.vault.azure.net/secrets/REDIS-CONNECTION-STRING"
     },
     "secret": true,
