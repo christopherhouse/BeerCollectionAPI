@@ -1,0 +1,8 @@
+{
+  "properties": {
+    "displayName": "managedIdentityClientId",
+    "secret": false,
+    "tags": [],
+    "value": "069ece17-015a-4190-8bcd-9ed39d77c906"
+  }
+}
