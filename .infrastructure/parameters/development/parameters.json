@@ -44,11 +44,23 @@
       "containerName": {
         "value": "beer-collection-api"
       },
-      "userAssignedManagedIdentityName": {
+      "containerAppUserAssignedManagedIdentityName": {
         "value": "cmh-beer-api-mi-dev"
       },
       "redisCacheName": {
         "value": "cmh-beer-api-rc-dev"
+      },
+      "apimAppInsightsName": {
+        "value": "cmh-beer-api-apim-ai-dev"
+      },
+      "containerAppAppInsightsName": {
+        "value": "cmh-beer-api-aca-ai-dev"
+      },
+      "environmentName": {
+        "value": "development"
+      },
+      "apimUserAssignedManagedIdentityName": {
+        "value": "cmh-beer-api-apim-mi-dev"
       }
     }
   }

@@ -1,10 +1,12 @@
 param cosmosDbAccountName string
 param region string
+param tags object
 
 resource cosmosdb 'Microsoft.DocumentDB/databaseAccounts@2022-11-15' = {
   name: cosmosDbAccountName
   location: region
   kind: 'GlobalDocumentDB'
+  tags: tags
   properties: {
     consistencyPolicy: {
       defaultConsistencyLevel: 'Session'
