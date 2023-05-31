@@ -53,10 +53,33 @@ public class BeerController : ControllerBase
     [ProducesResponseType(StatusCodes.Status404NotFound)]
     public async Task<IActionResult> SearchByBrewery(string breweryName)
     {
-        IActionResult result = null;
+        IActionResult result;
 
         var beers = await _dbContext.Beers
             .Where(_ => _.Brewery == breweryName)
+            .ToListAsync();
+
+        if (beers.Any())
+        {
+            result = Ok(beers);
+        }
+        else
+        {
+            result = NotFound();
+        }
+
+        return result;
+    }
+
+    [HttpGet("/style/{styleName}")]
+    [ProducesResponseType(typeof(IEnumerable<Beer>), StatusCodes.Status200OK)]
+    [ProducesResponseType(StatusCodes.Status404NotFound)]
+    public async Task<IActionResult> SearchByStyle(string styleName)
+    {
+        IActionResult result;
+
+        var beers = await _dbContext.Beers
+            .Where(_ => _.Style == styleName)
             .ToListAsync();
 
         if (beers.Any())
