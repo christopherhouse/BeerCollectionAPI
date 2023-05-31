@@ -8,3 +8,6 @@ namedValues:
   properties:
     keyVault:
       identityClientId: 9f3dcbdc-00e8-48a9-a43c-af1474038b74
+- name: managedIdentityClientId
+  properties:
+    value: 9f3dcbdc-00e8-48a9-a43c-af1474038b74
