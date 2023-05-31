@@ -1,0 +1,28 @@
+openapi: 3.0.1
+info:
+  title: Chuck
+  description: ''
+  version: '1.0'
+servers:
+  - url: https://cmhapimcons.azure-api.net/chuck
+paths:
+  /jokes/random:
+    get:
+      summary: Random
+      operationId: random
+      responses:
+        '200':
+          description: 
+components:
+  securitySchemes:
+    apiKeyHeader:
+      type: apiKey
+      name: Ocp-Apim-Subscription-Key
+      in: header
+    apiKeyQuery:
+      type: apiKey
+      name: subscription-key
+      in: query
+security:
+  - apiKeyHeader: [ ]
+  - apiKeyQuery: [ ]
