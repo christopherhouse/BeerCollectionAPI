@@ -14,23 +14,11 @@ public class BeerController : ControllerBase
 {
     private readonly BeerCollectionContext _dbContext;
     private readonly TelemetryClient _telemetryClient;
-    private readonly IConfiguration _configuration;
 
-    public BeerController(BeerCollectionContext dbContext, TelemetryClient telemetryClient, IConfiguration config)
+    public BeerController(BeerCollectionContext dbContext, TelemetryClient telemetryClient)
     {
         _dbContext = dbContext ?? throw new ArgumentNullException(nameof(dbContext));
         _telemetryClient = telemetryClient ?? throw new ArgumentNullException();
-        _configuration = config;
-    }
-
-    [HttpGet("/bad")]
-    public async Task<IActionResult> Bad()
-    {
-        var cs = _configuration["appinsights-connection-string"];
-
-        var thingToReturn = cs == null ? "NULL" : $"{cs.Substring(0, 25)}";
-
-        return new OkObjectResult(new { cs = thingToReturn });
     }
 
     [HttpGet]
