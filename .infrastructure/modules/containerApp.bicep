@@ -72,7 +72,7 @@ resource containerApp 'Microsoft.App/containerApps@2022-11-01-preview' = {
               secretRef: 'cosmos-database-name'
             }
             {
-              name: 'APPLICATIONINSIGHTS_CONNECTION_STRING'
+              name: 'APPLICATIONINSIGHTS-CONNECTION-STRING'
               secretRef: 'APPLICATIONINSIGHTS-CONNECTION-STRING'
             }
           ]
