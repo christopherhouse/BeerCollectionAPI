@@ -30,7 +30,7 @@ public class Program
                 builder.Configuration["cosmos-database-name"]));
         builder.Services.AddApplicationInsightsTelemetry(_ => new ApplicationInsightsServiceOptions
         {
-            ConnectionString = builder.Configuration["APPLICATIONINSIGHTS_CONNECTION_STRING"],
+            ConnectionString = builder.Configuration["appinsights-connection-string"],
             EnableDependencyTrackingTelemetryModule = true
         });
         
