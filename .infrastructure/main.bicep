@@ -155,6 +155,7 @@ module containerApp './modules/containerApp.bicep' = {
     userAssignedManagedIdentityId: containerAppUserAssignedManagedIdentity.outputs.id
     cosmosDbConnectionStringSecretUri: secrets.outputs.cosmosDbSecretUri
     cosmosDbDatabaseName: cosmosDbDatabase.outputs.name
+    appInsightsConnectionStringSecretUri: secrets.outputs.acaAppInsightsConnectionStringSecretUri
     tags: tags
   }
 }
