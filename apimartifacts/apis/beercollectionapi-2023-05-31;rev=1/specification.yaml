@@ -1,0 +1,388 @@
+openapi: 3.0.1
+info:
+  title: BeerCollectionAPI
+  version: '2023-05-31'
+servers:
+  - url: https://cmhapimcons.azure-api.net/beercollection/2023-05-31
+paths:
+  /Beer:
+    post:
+      tags:
+        - Beer
+      summary: /Beer - POST
+      operationId: post-beer
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateBeerRequest'
+            example:
+              beerName: string
+              brewery: string
+              style: string
+              imagePath: string
+              tastingNotes: string
+              vintage: 0
+              rating: 0
+              quantityOnHand: 0
+          text/json:
+            schema:
+              $ref: '#/components/schemas/CreateBeerRequest'
+            example:
+              beerName: string
+              brewery: string
+              style: string
+              imagePath: string
+              tastingNotes: string
+              vintage: 0
+              rating: 0
+              quantityOnHand: 0
+          application/*+json:
+            schema:
+              $ref: '#/components/schemas/CreateBeerRequest'
+            example:
+              beerName: string
+              brewery: string
+              style: string
+              imagePath: string
+              tastingNotes: string
+              vintage: 0
+              rating: 0
+              quantityOnHand: 0
+      responses:
+        '200':
+          description: Success
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/Beer'
+              examples:
+                default:
+                  value: 
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Beer'
+              example:
+                id: string
+                beerName: string
+                brewery: string
+                style: string
+                imagePath: string
+                tastingNotes: string
+                vintage: 0
+                rating: 0
+                quantityOnHand: 0
+            text/json:
+              schema:
+                $ref: '#/components/schemas/Beer'
+              example:
+                id: string
+                beerName: string
+                brewery: string
+                style: string
+                imagePath: string
+                tastingNotes: string
+                vintage: 0
+                rating: 0
+                quantityOnHand: 0
+        '404':
+          description: Not Found
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+              examples:
+                default:
+                  value: 
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+              example:
+                type: string
+                title: string
+                status: 0
+                detail: string
+                instance: string
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+              example:
+                type: string
+                title: string
+                status: 0
+                detail: string
+                instance: string
+    get:
+      tags:
+        - Beer
+      summary: /Beer - GET
+      operationId: get-beer
+      responses:
+        '200':
+          description: Success
+          content:
+            text/plain:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Beer'
+              examples:
+                default:
+                  value: 
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Beer'
+              example:
+                - id: string
+                  beerName: string
+                  brewery: string
+                  style: string
+                  imagePath: string
+                  tastingNotes: string
+                  vintage: 0
+                  rating: 0
+                  quantityOnHand: 0
+            text/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Beer'
+              example:
+                - id: string
+                  beerName: string
+                  brewery: string
+                  style: string
+                  imagePath: string
+                  tastingNotes: string
+                  vintage: 0
+                  rating: 0
+                  quantityOnHand: 0
+  '/Beer/{beerId}':
+    delete:
+      tags:
+        - Beer
+      summary: '/Beer/{beerId} - DELETE'
+      operationId: delete-beer
+      parameters:
+        - name: beerId
+          in: path
+          description: ID of beer to be deleted
+          required: true
+          schema:
+            type: string
+      responses:
+        '204':
+          description: Success
+        '404':
+          description: Not Found
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+              examples:
+                default:
+                  value: 
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+              example:
+                type: string
+                title: string
+                status: 0
+                detail: string
+                instance: string
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+              example:
+                type: string
+                title: string
+                status: 0
+                detail: string
+                instance: string
+    get:
+      tags:
+        - Beer
+      summary: '/Beer/{beerId} - GET'
+      operationId: get-beer-beerid
+      parameters:
+        - name: beerId
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Success
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/Beer'
+              examples:
+                default:
+                  value: 
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Beer'
+              example:
+                id: string
+                beerName: string
+                brewery: string
+                style: string
+                imagePath: string
+                tastingNotes: string
+                vintage: 0
+                rating: 0
+                quantityOnHand: 0
+            text/json:
+              schema:
+                $ref: '#/components/schemas/Beer'
+              example:
+                id: string
+                beerName: string
+                brewery: string
+                style: string
+                imagePath: string
+                tastingNotes: string
+                vintage: 0
+                rating: 0
+                quantityOnHand: 0
+        '404':
+          description: Not Found
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+              examples:
+                default:
+                  value: 
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+              example:
+                type: string
+                title: string
+                status: 0
+                detail: string
+                instance: string
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+              example:
+                type: string
+                title: string
+                status: 0
+                detail: string
+                instance: string
+  '/brewery/{breweryName}':
+    get:
+      summary: Brewery Search
+      operationId: brewery-search
+      parameters:
+        - name: breweryName
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: 
+components:
+  schemas:
+    Beer:
+      type: object
+      properties:
+        id:
+          type: string
+          nullable: true
+        beerName:
+          type: string
+          nullable: true
+        brewery:
+          type: string
+          nullable: true
+        style:
+          type: string
+          nullable: true
+        imagePath:
+          type: string
+          nullable: true
+        tastingNotes:
+          type: string
+          nullable: true
+        vintage:
+          type: integer
+          format: int32
+          nullable: true
+        rating:
+          type: number
+          format: double
+          nullable: true
+        quantityOnHand:
+          type: integer
+          format: int32
+      additionalProperties: false
+    CreateBeerRequest:
+      type: object
+      properties:
+        beerName:
+          type: string
+          nullable: true
+        brewery:
+          type: string
+          nullable: true
+        style:
+          type: string
+          nullable: true
+        imagePath:
+          type: string
+          nullable: true
+        tastingNotes:
+          type: string
+          nullable: true
+        vintage:
+          type: integer
+          format: int32
+          nullable: true
+        rating:
+          type: number
+          format: double
+          nullable: true
+        quantityOnHand:
+          type: integer
+          format: int32
+      additionalProperties: false
+    ProblemDetails:
+      type: object
+      properties:
+        type:
+          type: string
+          nullable: true
+        title:
+          type: string
+          nullable: true
+        status:
+          type: integer
+          format: int32
+          nullable: true
+        detail:
+          type: string
+          nullable: true
+        instance:
+          type: string
+          nullable: true
+      additionalProperties: { }
+  securitySchemes:
+    apiKeyHeader:
+      type: apiKey
+      name: Ocp-Apim-Subscription-Key
+      in: header
+    apiKeyQuery:
+      type: apiKey
+      name: subscription-key
+      in: query
+security:
+  - apiKeyHeader: [ ]
+  - apiKeyQuery: [ ]

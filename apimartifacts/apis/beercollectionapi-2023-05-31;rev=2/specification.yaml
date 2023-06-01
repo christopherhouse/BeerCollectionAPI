@@ -1,0 +1,522 @@
+openapi: 3.0.1
+info:
+  title: BeerCollectionAPI
+  version: '2023-05-31'
+servers:
+  - url: https://cmhapimcons.azure-api.net/beercollection/2023-05-31
+paths:
+  /Beer:
+    post:
+      tags:
+        - Beer
+      summary: /Beer - POST
+      operationId: post-beer
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateBeerRequest'
+            example:
+              beerName: string
+              brewery: string
+              style: string
+              imagePath: string
+              tastingNotes: string
+              vintage: 0
+              rating: 0
+              quantityOnHand: 0
+          text/json:
+            schema:
+              $ref: '#/components/schemas/CreateBeerRequest'
+            example:
+              beerName: string
+              brewery: string
+              style: string
+              imagePath: string
+              tastingNotes: string
+              vintage: 0
+              rating: 0
+              quantityOnHand: 0
+          application/*+json:
+            schema:
+              $ref: '#/components/schemas/CreateBeerRequest'
+            example:
+              beerName: string
+              brewery: string
+              style: string
+              imagePath: string
+              tastingNotes: string
+              vintage: 0
+              rating: 0
+              quantityOnHand: 0
+      responses:
+        '200':
+          description: Success
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/Beer'
+              examples:
+                default:
+                  value: 
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Beer'
+              example:
+                id: string
+                beerName: string
+                brewery: string
+                style: string
+                imagePath: string
+                tastingNotes: string
+                vintage: 0
+                rating: 0
+                quantityOnHand: 0
+            text/json:
+              schema:
+                $ref: '#/components/schemas/Beer'
+              example:
+                id: string
+                beerName: string
+                brewery: string
+                style: string
+                imagePath: string
+                tastingNotes: string
+                vintage: 0
+                rating: 0
+                quantityOnHand: 0
+        '404':
+          description: Not Found
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+              examples:
+                default:
+                  value: 
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+              example:
+                type: string
+                title: string
+                status: 0
+                detail: string
+                instance: string
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+              example:
+                type: string
+                title: string
+                status: 0
+                detail: string
+                instance: string
+    get:
+      tags:
+        - Beer
+      summary: /Beer - GET
+      operationId: get-beer
+      responses:
+        '200':
+          description: Success
+          content:
+            text/plain:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Beer'
+              examples:
+                default:
+                  value: 
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Beer'
+              example:
+                - id: string
+                  beerName: string
+                  brewery: string
+                  style: string
+                  imagePath: string
+                  tastingNotes: string
+                  vintage: 0
+                  rating: 0
+                  quantityOnHand: 0
+            text/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Beer'
+              example:
+                - id: string
+                  beerName: string
+                  brewery: string
+                  style: string
+                  imagePath: string
+                  tastingNotes: string
+                  vintage: 0
+                  rating: 0
+                  quantityOnHand: 0
+  '/Beer/{beerId}':
+    delete:
+      tags:
+        - Beer
+      summary: '/Beer/{beerId} - DELETE'
+      operationId: delete-beer
+      parameters:
+        - name: beerId
+          in: path
+          description: ID of beer to be deleted
+          required: true
+          schema:
+            type: string
+      responses:
+        '204':
+          description: Success
+        '404':
+          description: Not Found
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+              examples:
+                default:
+                  value: 
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+              example:
+                type: string
+                title: string
+                status: 0
+                detail: string
+                instance: string
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+              example:
+                type: string
+                title: string
+                status: 0
+                detail: string
+                instance: string
+    get:
+      tags:
+        - Beer
+      summary: '/Beer/{beerId} - GET'
+      operationId: get-beer-beerid
+      parameters:
+        - name: beerId
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Success
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/Beer'
+              examples:
+                default:
+                  value: 
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Beer'
+              example:
+                id: string
+                beerName: string
+                brewery: string
+                style: string
+                imagePath: string
+                tastingNotes: string
+                vintage: 0
+                rating: 0
+                quantityOnHand: 0
+            text/json:
+              schema:
+                $ref: '#/components/schemas/Beer'
+              example:
+                id: string
+                beerName: string
+                brewery: string
+                style: string
+                imagePath: string
+                tastingNotes: string
+                vintage: 0
+                rating: 0
+                quantityOnHand: 0
+        '404':
+          description: Not Found
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+              examples:
+                default:
+                  value: 
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+              example:
+                type: string
+                title: string
+                status: 0
+                detail: string
+                instance: string
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+              example:
+                type: string
+                title: string
+                status: 0
+                detail: string
+                instance: string
+  '/brewery/{breweryName}':
+    get:
+      summary: Brewery Search
+      operationId: brewery-search
+      parameters:
+        - name: breweryName
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: 
+  '/style/{styleName}':
+    get:
+      summary: Style Search
+      operationId: style-search
+      parameters:
+        - name: styleName
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '404':
+          description: ''
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/StyleSearchResult'
+              example:
+                - id: a7ceb874-d92c-4232-86d2-2137c986ad89
+                  beerName: Bourbon County Stout
+                  brewery: Goose Island
+                  style: Barrel Aged Imperial Stout
+                  imagePath: ''
+                  tastingNotes: Outstanding
+                  vintage: 2009
+                  rating: 4.8
+                  quantityOnHand: 1
+                - id: 42c3a81b-f8c8-47e7-920f-938473aa0e79
+                  beerName: Bourbon County Stout
+                  brewery: Goose Island
+                  style: Barrel Aged Imperial Stout
+                  imagePath: ''
+                  tastingNotes: 'Excellent, outstanding even'
+                  vintage: 2012
+                  rating: 5
+                  quantityOnHand: 9
+                - id: 53237ee3-bc7d-46e8-a833-33d4df26fce2
+                  beerName: Bourbon County Stout
+                  brewery: Goose Island
+                  style: Barrel Aged Imperial Stout
+                  imagePath: ''
+                  tastingNotes: 'Excellent, outstanding even'
+                  vintage: 2013
+                  rating: 5
+                  quantityOnHand: 4
+                - id: 4f42b820-b550-4cc2-b239-3ffdbdc35adf
+                  beerName: Bourbon County Stout
+                  brewery: Goose Island
+                  style: Barrel Aged Imperial Stout
+                  imagePath: ''
+                  tastingNotes: 'Excellent, outstanding even'
+                  vintage: 2014
+                  rating: 5
+                  quantityOnHand: 2
+                - id: f6d11413-9260-4f39-959d-eec3b4b7f625
+                  beerName: Dark Lord
+                  brewery: Three Floyds
+                  style: Barrel Aged Imperial Stout
+                  imagePath: ''
+                  tastingNotes: 'Excellent, outstanding even'
+                  vintage: 2015
+                  rating: 3.6
+                  quantityOnHand: 3
+                - id: 1417628e-0d3b-4bd5-8a03-968f6d96f7d1
+                  beerName: Lorelei
+                  brewery: Omnipollo
+                  style: Barrel Aged Imperial Stout
+                  imagePath: ''
+                  tastingNotes: 'Excellent, outstanding even'
+                  vintage: 2021
+                  rating: 4.75
+                  quantityOnHand: 3
+                - id: 0aef518a-5406-4538-a8f8-615a16eea357
+                  beerName: Noa Pecan Mud Stout
+                  brewery: Omnipollo
+                  style: Barrel Aged Imperial Stout
+                  imagePath: ''
+                  tastingNotes: 'Excellent, outstanding even'
+                  vintage: 2021
+                  rating: 4.75
+                  quantityOnHand: 3
+                - id: 11fce52c-a5e3-43dd-918d-462703c3779e
+                  beerName: Yellow Belly
+                  brewery: Omnipollo
+                  style: Barrel Aged Imperial Stout
+                  imagePath: ''
+                  tastingNotes: 'Excellent, outstanding even'
+                  vintage: 2021
+                  rating: 4.75
+                  quantityOnHand: 3
+                - id: 90d6132e-f464-4123-afd7-41b40e92711a
+                  beerName: Aon
+                  brewery: Omnipollo
+                  style: Barrel Aged Imperial Stout
+                  imagePath: ''
+                  tastingNotes: 'Excellent, outstanding even'
+                  vintage: 2021
+                  rating: 4.75
+                  quantityOnHand: 3
+components:
+  schemas:
+    Beer:
+      type: object
+      properties:
+        id:
+          type: string
+          nullable: true
+        beerName:
+          type: string
+          nullable: true
+        brewery:
+          type: string
+          nullable: true
+        style:
+          type: string
+          nullable: true
+        imagePath:
+          type: string
+          nullable: true
+        tastingNotes:
+          type: string
+          nullable: true
+        vintage:
+          type: integer
+          format: int32
+          nullable: true
+        rating:
+          type: number
+          format: double
+          nullable: true
+        quantityOnHand:
+          type: integer
+          format: int32
+      additionalProperties: false
+    CreateBeerRequest:
+      type: object
+      properties:
+        beerName:
+          type: string
+          nullable: true
+        brewery:
+          type: string
+          nullable: true
+        style:
+          type: string
+          nullable: true
+        imagePath:
+          type: string
+          nullable: true
+        tastingNotes:
+          type: string
+          nullable: true
+        vintage:
+          type: integer
+          format: int32
+          nullable: true
+        rating:
+          type: number
+          format: double
+          nullable: true
+        quantityOnHand:
+          type: integer
+          format: int32
+      additionalProperties: false
+    ProblemDetails:
+      type: object
+      properties:
+        type:
+          type: string
+          nullable: true
+        title:
+          type: string
+          nullable: true
+        status:
+          type: integer
+          format: int32
+          nullable: true
+        detail:
+          type: string
+          nullable: true
+        instance:
+          type: string
+          nullable: true
+      additionalProperties: { }
+    StyleSearchResult:
+      type: array
+      items:
+        required:
+          - id
+          - beerName
+          - brewery
+          - style
+          - imagePath
+          - tastingNotes
+          - vintage
+          - rating
+          - quantityOnHand
+        type: object
+        properties:
+          id:
+            type: string
+          beerName:
+            type: string
+          brewery:
+            type: string
+          style:
+            type: string
+          imagePath:
+            type: string
+          tastingNotes:
+            type: string
+          vintage:
+            type: integer
+          rating:
+            type: number
+          quantityOnHand:
+            type: integer
+  securitySchemes:
+    apiKeyHeader:
+      type: apiKey
+      name: Ocp-Apim-Subscription-Key
+      in: header
+    apiKeyQuery:
+      type: apiKey
+      name: subscription-key
+      in: query
+security:
+  - apiKeyHeader: [ ]
+  - apiKeyQuery: [ ]
