@@ -1,6 +1,7 @@
 using System.Text.Json;
 using BeerCollectionAPI.Data;
 using BeerCollectionAPI.Probes;
+using Microsoft.ApplicationInsights.AspNetCore.Extensions;
 using Microsoft.EntityFrameworkCore;
 
 namespace BeerCollectionAPI;
@@ -27,6 +28,11 @@ public class Program
         builder.Services.AddDbContext<BeerCollectionContext>(options =>
             options.UseCosmos(builder.Configuration["cosmos-connection-string"],
                 builder.Configuration["cosmos-database-name"]));
+        builder.Services.AddApplicationInsightsTelemetry(_ => new ApplicationInsightsServiceOptions
+        {
+            ConnectionString = builder.Configuration["APPLICATIONINSIGHTS_CONNECTION_STRING"],
+            EnableDependencyTrackingTelemetryModule = true
+        });
         
         var app = builder.Build();
 
