@@ -51,7 +51,7 @@ resource containerApp 'Microsoft.App/containerApps@2022-11-01-preview' = {
           identity: userAssignedManagedIdentityId
         }
         {
-          name: 'APPLICATIONINSIGHTS_CONNECTION_STRING'
+          name: 'APPLICATIONINSIGHTS-CONNECTION-STRING'
           keyVaultUrl: appInsightsConnectionStringSecretUri
           identity: userAssignedManagedIdentityId
         }
@@ -73,7 +73,7 @@ resource containerApp 'Microsoft.App/containerApps@2022-11-01-preview' = {
             }
             {
               name: 'APPLICATIONINSIGHTS_CONNECTION_STRING'
-              secretRef: 'APPLICATIONINSIGHTS_CONNECTION_STRING'
+              secretRef: 'APPLICATIONINSIGHTS-CONNECTION-STRING'
             }
           ]
           probes: [
