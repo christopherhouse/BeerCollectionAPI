@@ -30,7 +30,10 @@ public class Program
         builder.Services.AddApplicationInsightsTelemetry(_ => new ApplicationInsightsServiceOptions
         {
             ConnectionString = builder.Configuration["appinsights-connection-string"],
-            EnableDependencyTrackingTelemetryModule = true
+            EnableDependencyTrackingTelemetryModule = true,
+            EnableRequestTrackingTelemetryModule = true,
+            EnableDiagnosticsTelemetryModule = true,
+            EnableQuickPulseMetricStream = true
         });
         
         var app = builder.Build();
@@ -38,7 +41,6 @@ public class Program
         // Configure the HTTP request pipeline.
         app.UseSwagger();
         app.UseSwaggerUI();
-        
         app.UseHttpsRedirection();
 
         app.UseAuthorization();
