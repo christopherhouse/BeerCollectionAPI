@@ -2,6 +2,7 @@ using System.Text.Json;
 using BeerCollectionAPI.Data;
 using BeerCollectionAPI.Probes;
 using Microsoft.ApplicationInsights.AspNetCore.Extensions;
+using Microsoft.ApplicationInsights.Profiler.Core.Contracts;
 using Microsoft.EntityFrameworkCore;
 
 namespace BeerCollectionAPI;
@@ -11,6 +12,8 @@ public class Program
     public static void Main(string[] args)
     {
         var builder = WebApplication.CreateBuilder(args);
+
+        var appInsightsConnectionString = builder.Configuration["appinsights-connection-string"];
 
         // Add services to the container.
         builder.Services.AddControllers()
@@ -27,15 +30,8 @@ public class Program
         builder.Services.AddDbContext<BeerCollectionContext>(options =>
             options.UseCosmos(builder.Configuration["cosmos-connection-string"],
                 builder.Configuration["cosmos-database-name"]));
-        builder.Services.AddApplicationInsightsTelemetry(_ => new ApplicationInsightsServiceOptions
-        {
-            ConnectionString = builder.Configuration["appinsights-connection-string"],
-            EnableDependencyTrackingTelemetryModule = true,
-            EnableRequestTrackingTelemetryModule = true,
-            EnableDiagnosticsTelemetryModule = true,
-            EnableQuickPulseMetricStream = true
-        });
-        
+        builder.Services.AddApplicationInsightsTelemetry(appInsightsConnectionString);
+        builder.Services.AddServiceProfiler();
         var app = builder.Build();
 
         // Configure the HTTP request pipeline.

@@ -36,7 +36,7 @@ public class BeerController : ControllerBase
     [ProducesResponseType(StatusCodes.Status404NotFound)]
     public async Task<IActionResult> GetById(string beerId)
     {
-        IActionResult result = null;
+        IActionResult result;
 
         var beer = await _dbContext.Beers.FirstOrDefaultAsync(_ => _.Id == beerId);
 
