@@ -18,11 +18,11 @@ resource cosmosDb 'Microsoft.DocumentDB/databaseAccounts@2023-04-15'existing = {
   name: cosmosDbName
 }
 
-resource apimAppInsights 'Microsoft.Insights/components@2020-02-02-preview' existing = {
+resource apimAppInsights 'Microsoft.Insights/components@2020-02-02' existing = {
   name: apimAppInsightsName
 }
 
-resource containerAppsAppInsights 'Microsoft.Insights/components@2020-02-02-preview' existing = {
+resource containerAppsAppInsights 'Microsoft.Insights/components@2020-02-02' existing = {
   name: containerAppsAppInsightsName
 }
 
@@ -62,7 +62,7 @@ resource acaAppInsightsConnectionString 'Microsoft.KeyVault/vaults/secrets@2023-
   parent: keyVault
   tags: tags
   properties: {
-    value: containerAppsAppInsights.properties.InstrumentationKey
+    value: containerAppsAppInsights.properties.ConnectionString
   }
 }
 

@@ -6,6 +6,7 @@ param containerName string
 param containerVersion string
 param userAssignedManagedIdentityId string
 param cosmosDbConnectionStringSecretUri string
+param appInsightsConnectionStringSecretUri string
 param cosmosDbDatabaseName string
 param tags object
 
@@ -49,6 +50,11 @@ resource containerApp 'Microsoft.App/containerApps@2022-11-01-preview' = {
           keyVaultUrl: cosmosDbConnectionStringSecretUri
           identity: userAssignedManagedIdentityId
         }
+        {
+          name: 'APPLICATIONINSIGHTS_CONNECTION_STRING'
+          keyVaultUrl: appInsightsConnectionStringSecretUri
+          identity: userAssignedManagedIdentityId
+        }
       ]      
     }
     template: {
@@ -64,6 +70,10 @@ resource containerApp 'Microsoft.App/containerApps@2022-11-01-preview' = {
             {
               name: 'cosmos-database-name'
               secretRef: 'cosmos-database-name'
+            }
+            {
+              name: 'APPLICATIONINSIGHTS_CONNECTION_STRING'
+              secretRef: 'APPLICATIONINSIGHTS_CONNECTION_STRING'
             }
           ]
           probes: [
