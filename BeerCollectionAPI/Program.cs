@@ -30,7 +30,11 @@ public class Program
         builder.Services.AddDbContext<BeerCollectionContext>(options =>
             options.UseCosmos(builder.Configuration["cosmos-connection-string"],
                 builder.Configuration["cosmos-database-name"]));
-        builder.Services.AddApplicationInsightsTelemetry(appInsightsConnectionString);
+        builder.Services.AddApplicationInsightsTelemetry(_ => new ApplicationInsightsServiceOptions
+        {
+            ConnectionString = appInsightsConnectionString
+        });
+
         builder.Services.AddServiceProfiler();
         var app = builder.Build();
 
