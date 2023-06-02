@@ -46,7 +46,10 @@ public class Program
             options.UseCosmos(builder.Configuration["cosmos-connection-string"],
                 builder.Configuration["cosmos-database-name"]));
 
-        builder.Services.AddSingleton<ITelemetryInitializer, CloudRoleNameTelemetryInitializer>();
+        builder.Services.Configure<TelemetryConfiguration>(_ =>
+        {
+            _.TelemetryInitializers.Add(new CloudRoleNameTelemetryInitializer());
+        });
 
         builder.Services.AddApplicationInsightsTelemetry(_ => new ApplicationInsightsServiceOptions
         {
