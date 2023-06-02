@@ -17,19 +17,6 @@ public class Program
 
         var appInsightsConnectionString = builder.Configuration["appinsights-connection-string"];
 
-        var containsKey = (!string.IsNullOrWhiteSpace(appInsightsConnectionString) &&
-                           appInsightsConnectionString.Contains("InstrumentationKey",
-                               StringComparison.CurrentCultureIgnoreCase));
-
-        if (containsKey)
-        {
-            Console.WriteLine("**** Connection string environment variable seems ok ****");
-        }
-        else
-        {
-            Console.WriteLine("**** Connection string environment variable seems to be not set or incorrectly set ****");
-        }
-
         // Add services to the container.
         builder.Services.AddControllers()
             .AddJsonOptions(_ =>
