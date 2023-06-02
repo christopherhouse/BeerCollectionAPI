@@ -1,7 +1,9 @@
 using System.Text.Json;
 using BeerCollectionAPI.Data;
 using BeerCollectionAPI.Probes;
+using BeerCollectionAPI.Telemetry;
 using Microsoft.ApplicationInsights.AspNetCore.Extensions;
+using Microsoft.ApplicationInsights.Extensibility;
 using Microsoft.ApplicationInsights.Profiler.Core.Contracts;
 using Microsoft.EntityFrameworkCore;
 
@@ -43,6 +45,9 @@ public class Program
         builder.Services.AddDbContext<BeerCollectionContext>(options =>
             options.UseCosmos(builder.Configuration["cosmos-connection-string"],
                 builder.Configuration["cosmos-database-name"]));
+
+        builder.Services.AddSingleton<ITelemetryInitializer, CloudRoleNameTelemetryInitializer>();
+
         builder.Services.AddApplicationInsightsTelemetry(_ => new ApplicationInsightsServiceOptions
         {
             ConnectionString = appInsightsConnectionString
