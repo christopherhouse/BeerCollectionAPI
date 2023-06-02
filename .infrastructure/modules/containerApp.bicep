@@ -87,6 +87,10 @@ resource containerApp 'Microsoft.App/containerApps@2022-11-01-preview' = {
               periodSeconds: 10
             }
           ]
+          resources: {
+            cpu: json('2.0')
+            memory: '2Gi'
+          }
         }
       ]
     }    
