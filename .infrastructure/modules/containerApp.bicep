@@ -86,7 +86,7 @@ resource containerApp 'Microsoft.App/containerApps@2022-11-01-preview' = {
               secretRef: appInsightsConnectionStringSecretName
             }
             {
-              name: 'ApplicationInsights__InstrumentationKey'
+              name: 'applicationinsights__instrumentationkey'
               secretRef: appInsightsInstrumentationKeySecretName
             }
           ]

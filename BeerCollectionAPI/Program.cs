@@ -4,7 +4,6 @@ using BeerCollectionAPI.Probes;
 using BeerCollectionAPI.Telemetry;
 using Microsoft.ApplicationInsights.AspNetCore.Extensions;
 using Microsoft.ApplicationInsights.Extensibility;
-using Microsoft.ApplicationInsights.Profiler.Core.Contracts;
 using Microsoft.EntityFrameworkCore;
 
 namespace BeerCollectionAPI;
@@ -16,7 +15,7 @@ public class Program
         var builder = WebApplication.CreateBuilder(args);
 
         var appInsightsConnectionString = builder.Configuration["appinsights-connection-string"];
-        var instrumentationKey = builder.Configuration["ApplicationInsights:InstrumentationKey"];
+        var instrumentationKey = builder.Configuration["applicationinsights:instrumentationkey"];
 
         // Add services to the container.
         builder.Services.AddControllers()
