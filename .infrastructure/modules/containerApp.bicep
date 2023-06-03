@@ -88,11 +88,25 @@ resource containerApp 'Microsoft.App/containerApps@2022-11-01-preview' = {
             }
           ]
           resources: {
-            cpu: json('.05')
+            cpu: json('0.5')
             memory: '1Gi'
           }
         }
       ]
+      scale: {
+        minReplicas: 0
+        maxReplicas: 10
+        rules: [
+          {
+            http: {
+              metadata: {
+                concurrentRequests: '30'
+              }
+            }
+            name: 'scale-up-30-cx-reqs'
+          }
+        ]
+      }
     }    
   }
 }
