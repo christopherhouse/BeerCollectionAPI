@@ -5,6 +5,12 @@
       "region": {
         "value": "eastus"
       },
+      "workloadName": {
+        "value": "beer-api"
+      },
+      "resourceNamePrefix": {
+        "value": "cmh"
+      },
       "cosmosDbAccountName": {
         "value": "cmh-beer-api-cdb-dev"
       },
