@@ -2,7 +2,6 @@ param region string
 param buildId string
 param workloadName string
 param resourceNamePrefix string
-param cosmosDbContainerName string
 param partitionKeyPath string
 param keyVaultName string
 param logAnalyticsWorkspaceName string
@@ -44,6 +43,7 @@ var tagsDeploymentName = 'tags-${buildId}'
 // Resource Names
 var cosmosDbAccountName = '${resourceNamePrefix}-${workloadName}-cdb-${environmentName}'
 var cosmosDbDatabaseName = '${resourceNamePrefix}-${workloadName}-db'
+var cosmosDbContainerName = 'beers'
 
 module tags './modules/tags.bicep' = {
   name: tagsDeploymentName
