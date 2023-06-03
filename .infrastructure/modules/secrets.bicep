@@ -18,11 +18,11 @@ resource cosmosDb 'Microsoft.DocumentDB/databaseAccounts@2023-04-15'existing = {
   name: cosmosDbName
 }
 
-resource apimAppInsights 'Microsoft.Insights/components@2020-02-02-preview' existing = {
+resource apimAppInsights 'Microsoft.Insights/components@2020-02-02' existing = {
   name: apimAppInsightsName
 }
 
-resource containerAppsAppInsights 'Microsoft.Insights/components@2020-02-02-preview' existing = {
+resource containerAppsAppInsights 'Microsoft.Insights/components@2020-02-02' existing = {
   name: containerAppsAppInsightsName
 }
 
@@ -62,6 +62,15 @@ resource acaAppInsightsConnectionString 'Microsoft.KeyVault/vaults/secrets@2023-
   parent: keyVault
   tags: tags
   properties: {
+    value: containerAppsAppInsights.properties.ConnectionString
+  }
+}
+
+resource acaAppInsightsInstrumentationKey 'Microsoft.KeyVault/vaults/secrets@2023-02-01' = {
+  name: 'ACA-APPINSIGHTS-INSTRUMENTATION-KEY'
+  parent: keyVault
+  tags: tags
+  properties: {
     value: containerAppsAppInsights.properties.InstrumentationKey
   }
 }
@@ -77,5 +86,6 @@ resource redisSecret 'Microsoft.KeyVault/vaults/secrets@2023-02-01' = {
 
 output cosmosDbSecretUri string = cosmosDbConnectionString.properties.secretUri
 output acrAdminCredsSecretUri string = acr.properties.secretUri
+output acaAppInsightsInstrumentationKeySecretUri string = acaAppInsightsInstrumentationKey.properties.secretUri
 output acaAppInsightsConnectionStringSecretUri string = acaAppInsightsConnectionString.properties.secretUri
 output apimAppInsightsKeySecretUri string = apimAppInsightsKey.properties.secretUri

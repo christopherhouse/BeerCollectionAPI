@@ -2,6 +2,7 @@
 using BeerCollectionAPI.Data;
 using BeerCollectionAPI.Data.Models;
 using BeerCollectionAPI.Models.Requests;
+using Microsoft.ApplicationInsights;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
@@ -12,16 +13,19 @@ namespace BeerCollectionAPI.Controllers;
 public class BeerController : ControllerBase
 {
     private readonly BeerCollectionContext _dbContext;
+    private readonly TelemetryClient _telemetryClient;
 
-    public BeerController(BeerCollectionContext dbContext)
+    public BeerController(BeerCollectionContext dbContext, TelemetryClient telemetryClient)
     {
         _dbContext = dbContext ?? throw new ArgumentNullException(nameof(dbContext));
+        _telemetryClient = telemetryClient ?? throw new ArgumentNullException();
     }
 
     [HttpGet]
     [ProducesResponseType(typeof(IEnumerable<Beer>), StatusCodes.Status200OK)]
     public async Task<IActionResult> Get()
     {
+        _telemetryClient.TrackEvent("HTTP GET - /beer");
         var beers = await _dbContext.Beers.ToListAsync();
 
         return new OkObjectResult(beers);
@@ -32,7 +36,7 @@ public class BeerController : ControllerBase
     [ProducesResponseType(StatusCodes.Status404NotFound)]
     public async Task<IActionResult> GetById(string beerId)
     {
-        IActionResult result = null;
+        IActionResult result;
 
         var beer = await _dbContext.Beers.FirstOrDefaultAsync(_ => _.Id == beerId);
 

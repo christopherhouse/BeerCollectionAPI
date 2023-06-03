@@ -39,12 +39,16 @@ var acrPullAssignmentDeploymentName = 'acrPullAssignment-${buildId}'
 var containerAppAppInsightsDeploymentName = '${containerAppAppInsightsName}-${buildId}'
 var apimAppInsightsDeploymentName = '${apimAppInsightsName}-${buildId}'
 var apimUserAssignedManagedIdentityDeploymentName = '${apimUserAssignedManagedIdentityName}-${buildId}'
+var tagsDeploymentName = 'tags-${buildId}'
 
-var tags = {
-  Environment: environmentName
-  Last_Deployment_Date: deploymentDate
-  Owner: 'chhouse@microsoft.com'
-  Build_ID: buildId
+module tags './modules/tags.bicep' = {
+  name: tagsDeploymentName
+  params: {
+    environmentName: environmentName
+    deploymentDate: deploymentDate
+    buildId: buildId
+    owner: 'chhouse@microsoft.com'
+  }
 }
 
 module cosmosDb './modules/cosmosDbAccount.bicep' = {
@@ -52,7 +56,7 @@ module cosmosDb './modules/cosmosDbAccount.bicep' = {
   params: {
     region: region
     cosmosDbAccountName: cosmosDbAccountName
-    tags: tags
+    tags: tags.outputs.tags
   }
 }
 
@@ -61,7 +65,7 @@ module cosmosDbDatabase './modules/cosmosDbDatabase.bicep' = {
   params: {
     cosmosDbAccountName: cosmosDb.outputs.name
     cosmosDbDatabaseName: cosmosDbDatabaseName
-    tags: tags
+    tags: tags.outputs.tags
   }
 }
 
@@ -72,7 +76,7 @@ module cosmosDbContainer './modules/cosmosDbContainer.bicep' = {
     cosmosDbDatabaseName: cosmosDbDatabase.outputs.name
     cosmosDbContainerName: cosmosDbContainerName
     partitionKeyPath: partitionKeyPath
-    tags: tags
+    tags: tags.outputs.tags
   }
 }
 
@@ -81,7 +85,7 @@ module containerAppUserAssignedManagedIdentity './modules/userAssignedManagedIde
   params: {
     region: region
     name: containerAppUserAssignedManagedIdentityName
-    tags: tags
+    tags: tags.outputs.tags
   }
 }
 
@@ -90,7 +94,7 @@ module apimUserAssignedManagedIdentity './modules/userAssignedManagedIdentity.bi
   params: {
     region: region
     name: apimUserAssignedManagedIdentityName
-    tags: tags
+    tags: tags.outputs.tags
   }
 }
 
@@ -103,7 +107,7 @@ module keyVault './modules/keyVault.bicep' = {
       containerAppUserAssignedManagedIdentity.outputs.principalId
       apimUserAssignedManagedIdentity.outputs.principalId
     ]
-    tags: tags
+    tags: tags.outputs.tags
   }
 }
 
@@ -112,7 +116,7 @@ module logAnalyticsWorkspace './modules/logAnalyticsWorkspace.bicep' = {
   params: {
     region: region
     logAnalyticsWorkspaceName: logAnalyticsWorkspaceName
-    tags: tags
+    tags: tags.outputs.tags
   }
 }
 
@@ -121,7 +125,7 @@ module registry './modules/containerRegistry.bicep' = {
   params: {
     region: region
     containerRegistryName: containerRegistryName
-    tags: tags
+    tags: tags.outputs.tags
   }
 }
 
@@ -139,7 +143,7 @@ module acaEnvironment './modules/containerAppsEnvironment.bicep' = {
     region: region
     containerAppsEnvironmentName: containerAppsEnvironmentName
     logAnalyticsWorkspaceName: logAnalyticsWorkspace.outputs.name
-    tags: tags
+    tags: tags.outputs.tags
   }
 }
 
@@ -155,7 +159,9 @@ module containerApp './modules/containerApp.bicep' = {
     userAssignedManagedIdentityId: containerAppUserAssignedManagedIdentity.outputs.id
     cosmosDbConnectionStringSecretUri: secrets.outputs.cosmosDbSecretUri
     cosmosDbDatabaseName: cosmosDbDatabase.outputs.name
-    tags: tags
+    appInsightsConnectionStringSecretUri: secrets.outputs.acaAppInsightsConnectionStringSecretUri
+    appInsightsInstrumentationKeySecretUri: secrets.outputs.acaAppInsightsInstrumentationKeySecretUri
+    tags: tags.outputs.tags
   }
 }
 
@@ -167,7 +173,7 @@ module apiManagement './modules/apiManagement.bicep' = {
     publisherEmail: apiManagementPublisherEmail
     publisherName: apiManagementPublisherName
     userAssignedManagedIdentityId: apimUserAssignedManagedIdentity.outputs.id
-    tags: tags
+    tags: tags.outputs.tags
   }
 }
 
@@ -180,7 +186,7 @@ module secrets './modules/secrets.bicep' = {
     apimAppInsightsName: appInsightsApim.outputs.name
     containerAppsAppInsightsName: appInsightsContainerApp.outputs.name
     redisCacheName: redis.outputs.name
-    tags: tags
+    tags: tags.outputs.tags
   }
 }
 
@@ -189,7 +195,7 @@ module redis './modules/redis.bicep' = {
   params: {
     redisCacheName: redisCacheName
     region: region
-    tags: tags
+    tags: tags.outputs.tags
   }
 }
 
@@ -199,7 +205,7 @@ module appInsightsApim './modules/applicationInsights.bicep' = {
     appInsightsName: apimAppInsightsName
     logAnalyticsWorkspaceResourceId: logAnalyticsWorkspace.outputs.id
     region: region
-    tags: tags
+    tags: tags.outputs.tags
   }
 }
 
@@ -209,6 +215,6 @@ module appInsightsContainerApp './modules/applicationInsights.bicep' = {
     appInsightsName: containerAppAppInsightsName
     logAnalyticsWorkspaceResourceId: logAnalyticsWorkspace.outputs.id
     region: region
-    tags: tags
+    tags: tags.outputs.tags
   }
 }
