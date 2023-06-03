@@ -2,8 +2,6 @@ param region string
 param buildId string
 param workloadName string
 param resourceNamePrefix string
-param cosmosDbAccountName string
-param cosmosDbDatabaseName string
 param cosmosDbContainerName string
 param partitionKeyPath string
 param keyVaultName string
@@ -42,16 +40,10 @@ var containerAppAppInsightsDeploymentName = '${containerAppAppInsightsName}-${bu
 var apimAppInsightsDeploymentName = '${apimAppInsightsName}-${buildId}'
 var apimUserAssignedManagedIdentityDeploymentName = '${apimUserAssignedManagedIdentityName}-${buildId}'
 var tagsDeploymentName = 'tags-${buildId}'
-var namesDeploymentName = 'names-${buildId}'
 
-module names './modules/names.bicep' = {
-  name: namesDeploymentName
-  params: {
-    environmentName: environmentName
-    resourceNamePrefix: resourceNamePrefix
-    workloadName: workloadName
-  }
-}
+// Resource Names
+var cosmosDbAccountName = '${resourceNamePrefix}-${workloadName}-cdb-${environmentName}'
+var cosmosDbDatabaseName = '${resourceNamePrefix}-${workloadName}-db'
 
 module tags './modules/tags.bicep' = {
   name: tagsDeploymentName
@@ -67,7 +59,7 @@ module cosmosDb './modules/cosmosDbAccount.bicep' = {
   name: cosmosDbDeploymentName
   params: {
     region: region
-    cosmosDbAccountName: names.outputs.cosmosDbAccountName
+    cosmosDbAccountName: cosmosDbAccountName
     tags: tags.outputs.tags
   }
 }

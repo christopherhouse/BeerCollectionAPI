@@ -11,15 +11,6 @@
       "resourceNamePrefix": {
         "value": "cmh"
       },
-      "cosmosDbAccountName": {
-        "value": "cmh-beer-api-cdb-dev"
-      },
-      "cosmosDbDatabaseName": {
-        "value": "cmh-beer-api-db"
-      },
-      "cosmosDbContainerName": {
-        "value": "beers"
-      },
       "partitionKeyPath": {
         "value": "/brewery"
       },
