@@ -16,6 +16,7 @@ public class Program
         var builder = WebApplication.CreateBuilder(args);
 
         var appInsightsConnectionString = builder.Configuration["appinsights-connection-string"];
+        var instrumentationKey = builder.Configuration["ApplicationInsights:InstrumentationKey"];
 
         // Add services to the container.
         builder.Services.AddControllers()
@@ -35,7 +36,8 @@ public class Program
 
         builder.Services.AddApplicationInsightsTelemetry(_ => new ApplicationInsightsServiceOptions
         {
-            ConnectionString = appInsightsConnectionString
+            ConnectionString = appInsightsConnectionString,
+            InstrumentationKey = instrumentationKey
         });
 
         builder.Services.Configure<TelemetryConfiguration>(_ =>

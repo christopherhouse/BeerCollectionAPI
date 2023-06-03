@@ -7,10 +7,15 @@ param containerVersion string
 param userAssignedManagedIdentityId string
 param cosmosDbConnectionStringSecretUri string
 param appInsightsConnectionStringSecretUri string
+param appInsightsInstrumentationKeySecretUri string
 param cosmosDbDatabaseName string
 param tags object
 
 var containerImage = '${acr.properties.loginServer}/${containerName}:${containerVersion}'
+var appInsightsInstrumentationKeySecretName = 'appinsights-instrumentation-key'
+var cosmosDbDatabaseNameSecretName = 'cosmos-database-name'
+var cosmosDbConnectionStringSecretName = 'cosmos-connection-string'
+var appInsightsConnectionStringSecretName = 'appinsights-connection-string'
 
 resource acr 'Microsoft.ContainerRegistry/registries@2023-01-01-preview' existing = {
   name: registry
@@ -42,17 +47,22 @@ resource containerApp 'Microsoft.App/containerApps@2022-11-01-preview' = {
       ]
       secrets: [
         {
-          name: 'cosmos-database-name'
+          name: cosmosDbDatabaseNameSecretName
           value: cosmosDbDatabaseName
         }
         {
-          name: 'cosmos-connection-string'
+          name: cosmosDbDatabaseNameSecretName
           keyVaultUrl: cosmosDbConnectionStringSecretUri
           identity: userAssignedManagedIdentityId
         }
         {
-          name: 'appinsights-connection-string'
+          name: appInsightsConnectionStringSecretName
           keyVaultUrl: appInsightsConnectionStringSecretUri
+          identity: userAssignedManagedIdentityId
+        }
+        {
+          name: appInsightsInstrumentationKeySecretName
+          keyVaultUrl: appInsightsInstrumentationKeySecretUri
           identity: userAssignedManagedIdentityId
         }
       ]      
@@ -65,15 +75,19 @@ resource containerApp 'Microsoft.App/containerApps@2022-11-01-preview' = {
           env: [
             {
               name: 'cosmos-connection-string'
-              secretRef: 'cosmos-connection-string'
+              secretRef: cosmosDbConnectionStringSecretName
             }
             {
               name: 'cosmos-database-name'
-              secretRef: 'cosmos-database-name'
+              secretRef: cosmosDbDatabaseNameSecretName
             }
             {
               name: 'appinsights-connection-string'
-              secretRef: 'appinsights-connection-string'
+              secretRef: appInsightsConnectionStringSecretName
+            }
+            {
+              name: 'ApplicationInsights__InstrumentationKey'
+              secretRef: appInsightsInstrumentationKeySecretName
             }
           ]
           probes: [

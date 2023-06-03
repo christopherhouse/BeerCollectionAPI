@@ -160,6 +160,7 @@ module containerApp './modules/containerApp.bicep' = {
     cosmosDbConnectionStringSecretUri: secrets.outputs.cosmosDbSecretUri
     cosmosDbDatabaseName: cosmosDbDatabase.outputs.name
     appInsightsConnectionStringSecretUri: secrets.outputs.acaAppInsightsConnectionStringSecretUri
+    appInsightsInstrumentationKeySecretUri: secrets.outputs.acaAppInsightsInstrumentationKeySecretUri
     tags: tags.outputs.tags
   }
 }

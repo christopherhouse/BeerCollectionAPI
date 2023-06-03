@@ -66,6 +66,15 @@ resource acaAppInsightsConnectionString 'Microsoft.KeyVault/vaults/secrets@2023-
   }
 }
 
+resource acaAppInsightsInstrumentationKey 'Microsoft.KeyVault/vaults/secrets@2023-02-01' = {
+  name: 'ACA-APPINSIGHTS-INSTRUMENTATION-KEY'
+  parent: keyVault
+  tags: tags
+  properties: {
+    value: containerAppsAppInsights.properties.InstrumentationKey
+  }
+}
+
 resource redisSecret 'Microsoft.KeyVault/vaults/secrets@2023-02-01' = {
   name: 'REDIS-CONNECTION-STRING'
   parent: keyVault
@@ -77,5 +86,6 @@ resource redisSecret 'Microsoft.KeyVault/vaults/secrets@2023-02-01' = {
 
 output cosmosDbSecretUri string = cosmosDbConnectionString.properties.secretUri
 output acrAdminCredsSecretUri string = acr.properties.secretUri
+output acaAppInsightsInstrumentationKeySecretUri string = acaAppInsightsInstrumentationKey.properties.secretUri
 output acaAppInsightsConnectionStringSecretUri string = acaAppInsightsConnectionString.properties.secretUri
 output apimAppInsightsKeySecretUri string = apimAppInsightsKey.properties.secretUri
