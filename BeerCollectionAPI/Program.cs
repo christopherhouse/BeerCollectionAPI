@@ -15,7 +15,7 @@ public class Program
         var builder = WebApplication.CreateBuilder(args);
 
         var appInsightsConnectionString = builder.Configuration["appinsights-connection-string"];
-        var instrumentationKey = builder.Configuration["applicationinsights:instrumentationkey"];
+        var instrumentationKey = builder.Configuration["ApplicationInsights:InstrumentationKey"];
 
         // Add services to the container.
         builder.Services.AddControllers()

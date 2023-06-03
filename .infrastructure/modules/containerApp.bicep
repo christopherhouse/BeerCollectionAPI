@@ -51,7 +51,7 @@ resource containerApp 'Microsoft.App/containerApps@2022-11-01-preview' = {
           value: cosmosDbDatabaseName
         }
         {
-          name: cosmosDbDatabaseNameSecretName
+          name: cosmosDbConnectionStringSecretName
           keyVaultUrl: cosmosDbConnectionStringSecretUri
           identity: userAssignedManagedIdentityId
         }
@@ -86,7 +86,7 @@ resource containerApp 'Microsoft.App/containerApps@2022-11-01-preview' = {
               secretRef: appInsightsConnectionStringSecretName
             }
             {
-              name: 'applicationinsights__instrumentationkey'
+              name: 'ApplicationInsights__InstrumentationKey'
               secretRef: appInsightsInstrumentationKeySecretName
             }
           ]
