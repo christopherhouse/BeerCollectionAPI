@@ -21,5 +21,6 @@ public class CloudRoleNameTelemetryInitializer : ITelemetryInitializer
         telemetry.Context.Cloud.RoleInstance = instanceName;
 
         Console.WriteLine($"**** Telemetry initialized Role={telemetry.Context.Cloud.RoleName}, Instance={instanceName} ****");
+        Console.WriteLine($"**** iKey={telemetry.Context.InstrumentationKey} ****");
     }
 }
