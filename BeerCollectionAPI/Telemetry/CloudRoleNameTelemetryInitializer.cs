@@ -8,15 +8,15 @@ public class CloudRoleNameTelemetryInitializer : ITelemetryInitializer
 {
     public void Initialize(ITelemetry telemetry)
     {
-        //telemetry.Context.Cloud.RoleName = "Beer Collection API Container";
+        telemetry.Context.Cloud.RoleName = "Beer Collection API Container";
 
-        //var instanceName = Dns.GetHostName();
+        var instanceName = Dns.GetHostName();
 
-        //if (string.IsNullOrWhiteSpace(instanceName))
-        //{
-        //    instanceName = Guid.NewGuid().ToString();
-        //}
+        if (string.IsNullOrWhiteSpace(instanceName))
+        {
+            instanceName = Guid.NewGuid().ToString();
+        }
 
-        //telemetry.Context.Cloud.RoleInstance = instanceName;
+        telemetry.Context.Cloud.RoleInstance = instanceName;
     }
 }
