@@ -2,9 +2,8 @@ param region string
 param buildId string
 param workloadName string
 param resourceNamePrefix string
+param environmentSuffix string
 param partitionKeyPath string
-param keyVaultName string
-param logAnalyticsWorkspaceName string
 param containerAppsEnvironmentName string
 param containerRegistryName string
 param apiManagementServiceName string
@@ -13,12 +12,10 @@ param apiManagementPublisherName string
 param containerAppName string
 param containerName string
 param containerVersionTag string
-param containerAppUserAssignedManagedIdentityName string
 param redisCacheName string
 param containerAppAppInsightsName string
 param apimAppInsightsName string
 param environmentName string
-param apimUserAssignedManagedIdentityName string
 param deploymentDate string = utcNow('yyyy-MM-ddTHH:mm:ssZ')
 
 // Variables for module deployment names
@@ -41,9 +38,13 @@ var apimUserAssignedManagedIdentityDeploymentName = '${apimUserAssignedManagedId
 var tagsDeploymentName = 'tags-${buildId}'
 
 // Resource Names
-var cosmosDbAccountName = '${resourceNamePrefix}-${workloadName}-cdb-${environmentName}'
+var cosmosDbAccountName = '${resourceNamePrefix}-${workloadName}-cdb-${environmentSuffix}'
 var cosmosDbDatabaseName = '${resourceNamePrefix}-${workloadName}-db'
 var cosmosDbContainerName = 'beers'
+var containerAppUserAssignedManagedIdentityName = '${resourceNamePrefix}-${workloadName}-api-mi-${environmentSuffix}'
+var apimUserAssignedManagedIdentityName = '${resourceNamePrefix}-${workloadName}-apim-mi-${environmentSuffix}'
+var keyVaultName = '${resourceNamePrefix}-${workloadName}-kv-${environmentSuffix}'
+var logAnalyticsWorkspaceName = '${resourceNamePrefix}-${workloadName}-laws-${environmentSuffix}'
 
 module tags './modules/tags.bicep' = {
   name: tagsDeploymentName

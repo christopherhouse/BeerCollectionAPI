@@ -11,14 +11,11 @@
       "resourceNamePrefix": {
         "value": "cmh"
       },
+      "environmentSuffix": {
+        "value": "dev"
+      },
       "partitionKeyPath": {
         "value": "/brewery"
-      },
-      "keyVaultName": {
-        "value": "cmh-beer-api-kv-dev"
-      },
-      "logAnalyticsWorkspaceName": {
-        "value": "cmh-beer-api-laws-dev"
       },
       "containerAppsEnvironmentName": {
         "value": "cmh-beer-api-aca-env-dev"
@@ -41,9 +38,6 @@
       "containerName": {
         "value": "beer-collection-api"
       },
-      "containerAppUserAssignedManagedIdentityName": {
-        "value": "cmh-beer-api-mi-dev"
-      },
       "redisCacheName": {
         "value": "cmh-beer-api-rc-dev"
       },
@@ -55,9 +49,6 @@
       },
       "environmentName": {
         "value": "development"
-      },
-      "apimUserAssignedManagedIdentityName": {
-        "value": "cmh-beer-api-apim-mi-dev"
       }
     }
   }
