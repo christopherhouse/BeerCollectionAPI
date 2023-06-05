@@ -13,6 +13,10 @@
 <policies>
 	<inbound>
 		<base />
+		<authentication-managed-identity resource="92fd0527-ecf0-4acd-8a47-c7ae46cf6c1c" client-id="069ece17-015a-4190-8bcd-9ed39d77c906" output-token-variable-name="msi-access-token" />
+		<set-header name="Authorization" exists-action="override">
+			<value>@("Bearer " + (string)context.Variables["msi-access-token"])</value>
+		</set-header>
 	</inbound>
 	<backend>
 		<base />

@@ -1,11 +1,58 @@
 openapi: 3.0.1
 info:
   title: BeerCollectionAPI
-  version: '2023-05-31'
+  version: '2023-05-24'
 servers:
-  - url: https://cmhapimcons.azure-api.net/beercollection/2023-05-31
+  - url: https://cmhapimcons.azure-api.net/beercollection/2023-05-24
 paths:
   /Beer:
+    get:
+      tags:
+        - Beer
+      summary: /Beer - GET
+      operationId: get-beer
+      responses:
+        '200':
+          description: Success
+          content:
+            text/plain:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Beer'
+              examples:
+                default:
+                  value: 
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Beer'
+              example:
+                - id: string
+                  beerName: string
+                  brewery: string
+                  style: string
+                  imagePath: string
+                  tastingNotes: string
+                  vintage: 0
+                  rating: 0
+                  quantityOnHand: 0
+            text/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Beer'
+              example:
+                - id: string
+                  beerName: string
+                  brewery: string
+                  style: string
+                  imagePath: string
+                  tastingNotes: string
+                  vintage: 0
+                  rating: 0
+                  quantityOnHand: 0
     post:
       tags:
         - Beer
@@ -112,53 +159,6 @@ paths:
                 status: 0
                 detail: string
                 instance: string
-    get:
-      tags:
-        - Beer
-      summary: /Beer - GET
-      operationId: get-beer
-      responses:
-        '200':
-          description: Success
-          content:
-            text/plain:
-              schema:
-                type: array
-                items:
-                  $ref: '#/components/schemas/Beer'
-              examples:
-                default:
-                  value: 
-            application/json:
-              schema:
-                type: array
-                items:
-                  $ref: '#/components/schemas/Beer'
-              example:
-                - id: string
-                  beerName: string
-                  brewery: string
-                  style: string
-                  imagePath: string
-                  tastingNotes: string
-                  vintage: 0
-                  rating: 0
-                  quantityOnHand: 0
-            text/json:
-              schema:
-                type: array
-                items:
-                  $ref: '#/components/schemas/Beer'
-              example:
-                - id: string
-                  beerName: string
-                  brewery: string
-                  style: string
-                  imagePath: string
-                  tastingNotes: string
-                  vintage: 0
-                  rating: 0
-                  quantityOnHand: 0
   '/Beer/{beerId}':
     delete:
       tags:
@@ -276,19 +276,6 @@ paths:
                 status: 0
                 detail: string
                 instance: string
-  '/brewery/{breweryName}':
-    get:
-      summary: Brewery Search
-      operationId: brewery-search
-      parameters:
-        - name: breweryName
-          in: path
-          required: true
-          schema:
-            type: string
-      responses:
-        '200':
-          description: 
 components:
   schemas:
     Beer:

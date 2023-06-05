@@ -1,0 +1,8 @@
+{
+  "properties": {
+    "displayName": "backend-client-id",
+    "secret": false,
+    "tags": [],
+    "value": "92fd0527-ecf0-4acd-8a47-c7ae46cf6c1c"
+  }
+}
