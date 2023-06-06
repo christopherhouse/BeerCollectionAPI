@@ -4,6 +4,7 @@ param containerRegistryName string
 param apimAppInsightsName string
 param containerAppsAppInsightsName string
 param redisCacheName string
+param acaIdentityProviderClientSecretSecretName string
 param tags object
 
 resource keyVault 'Microsoft.KeyVault/vaults@2018-02-14' existing = {
@@ -28,6 +29,11 @@ resource containerAppsAppInsights 'Microsoft.Insights/components@2020-02-02' exi
 
 resource redisCache 'Microsoft.Cache/redis@2022-06-01' existing = {
   name: redisCacheName
+}
+
+resource clientSecretSecret 'Microsoft.KeyVault/vaults/secrets@2023-02-01' existing = {
+  name: acaIdentityProviderClientSecretSecretName
+  parent: keyVault
 }
 
 resource cosmosDbConnectionString 'Microsoft.KeyVault/vaults/secrets@2023-02-01' = {
@@ -89,3 +95,4 @@ output acrAdminCredsSecretUri string = acr.properties.secretUri
 output acaAppInsightsInstrumentationKeySecretUri string = acaAppInsightsInstrumentationKey.properties.secretUri
 output acaAppInsightsConnectionStringSecretUri string = acaAppInsightsConnectionString.properties.secretUri
 output apimAppInsightsKeySecretUri string = apimAppInsightsKey.properties.secretUri
+output acaIdentityProviderClientSecretSecretUri string = clientSecretSecret.properties.secretUri

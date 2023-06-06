@@ -16,6 +16,9 @@ param redisCacheName string
 param containerAppAppInsightsName string
 param apimAppInsightsName string
 param environmentName string
+param containerAppIdentityProviderClientIdSecretName string
+param containerAppIdentityProviderOpenIdIssuerSecretName string
+param acaIdentityProviderClientSecretSecretName string
 param deploymentDate string = utcNow('yyyy-MM-ddTHH:mm:ssZ')
 
 // Variables for module deployment names
@@ -166,6 +169,10 @@ module containerApp './modules/containerApp.bicep' = {
     cosmosDbDatabaseName: cosmosDbDatabase.outputs.name
     appInsightsConnectionStringSecretUri: secrets.outputs.acaAppInsightsConnectionStringSecretUri
     appInsightsInstrumentationKeySecretUri: secrets.outputs.acaAppInsightsInstrumentationKeySecretUri
+    identityProviderClientSecretSecretUri: secrets.outputs.acaIdentityProviderClientSecretSecretUri
+    identityProviderClientIdSecretName: containerAppIdentityProviderClientIdSecretName
+    identityProviderOpenIdIssuerSecretName: containerAppIdentityProviderOpenIdIssuerSecretName
+    keyVaultName: keyVaultName
     tags: tags.outputs.tags
   }
 }
@@ -191,6 +198,7 @@ module secrets './modules/secrets.bicep' = {
     apimAppInsightsName: appInsightsApim.outputs.name
     containerAppsAppInsightsName: appInsightsContainerApp.outputs.name
     redisCacheName: redis.outputs.name
+    acaIdentityProviderClientSecretSecretName: acaIdentityProviderClientSecretSecretName
     tags: tags.outputs.tags
   }
 }

@@ -17,6 +17,15 @@
       "partitionKeyPath": {
         "value": "/brewery"
       },
+      "containerAppIdentityProviderClientIdSecretName": {
+        "value": "ACA-IDENTITY-PROVIDER-CLIENT-ID"
+      },
+      "containerAppIdentityProviderOpenIdIssuerSecretName": {
+        "value": "ACA-IDENTITY-PROVIDER-TOKEN-ISSUER"
+      },
+      "acaIdentityProviderClientSecretSecretName": {
+        "value": "ACA-IDENTITY-PROVIDER-SECRET"
+      },
       "containerAppsEnvironmentName": {
         "value": "cmh-beer-api-aca-env-dev"
       },
