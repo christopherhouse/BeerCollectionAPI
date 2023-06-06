@@ -174,6 +174,7 @@ module containerApp './modules/containerApp.bicep' = {
     identityProviderOpenIdIssuerSecretName: containerAppIdentityProviderOpenIdIssuerSecretName
     keyVaultName: keyVaultName
     tags: tags.outputs.tags
+    buildId: buildId
   }
 }
 

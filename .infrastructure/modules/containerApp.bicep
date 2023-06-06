@@ -13,6 +13,7 @@ param identityProviderClientIdSecretName string
 param identityProviderClientSecretSecretUri string
 param identityProviderOpenIdIssuerSecretName string
 param keyVaultName string
+param buildId string
 param tags object
 
 var containerImage = '${acr.properties.loginServer}/${containerName}:${containerVersion}'
@@ -21,6 +22,7 @@ var cosmosDbDatabaseNameSecretName = 'cosmos-database-name'
 var cosmosDbConnectionStringSecretName = 'cosmos-connection-string'
 var appInsightsConnectionStringSecretName = 'appinsights-connection-string'
 var identityProviderClientSecretSecretName = 'identity-provider-client-secret'
+var authConfigDeploymentName = '${containerAppName}-auth-config-${buildId}'
 
 resource acr 'Microsoft.ContainerRegistry/registries@2023-01-01-preview' existing = {
   name: registry
@@ -28,16 +30,6 @@ resource acr 'Microsoft.ContainerRegistry/registries@2023-01-01-preview' existin
 
 resource keyVault 'Microsoft.KeyVault/vaults@2023-02-01' existing = {
   name: keyVaultName
-}
-
-resource tokenIssuerSecret 'Microsoft.KeyVault/vaults/secrets@2021-06-01-preview' existing = {
-  name: identityProviderOpenIdIssuerSecretName
-  parent: keyVault
-}
-
-resource clientIdSecret 'Microsoft.KeyVault/vaults/secrets@2023-02-01' existing = {
-  name: identityProviderClientIdSecretName
-  parent: keyVault
 }
 
 resource containerApp 'Microsoft.App/containerApps@2022-11-01-preview' = {
@@ -149,30 +141,13 @@ resource containerApp 'Microsoft.App/containerApps@2022-11-01-preview' = {
   }
 }
 
-resource authConfig 'Microsoft.App/containerApps/authConfigs@2022-11-01-preview' = {
-  parent: containerApp
-  name: 'current'
-  properties: {
-    globalValidation: {
-      redirectToProvider: 'azureactivedirectory'
-      unauthenticatedClientAction: 'RedirectToLoginPage'
-    }
-    identityProviders: {
-      azureActiveDirectory: {
-        isAutoProvisioned: false
-        registration: {
-          clientId: clientIdSecret.properties.value
-          clientSecretSettingName: identityProviderClientSecretSecretName
-          openIdIssuer: tokenIssuerSecret.properties.value
-        }
-      }
-    }
-    login: {
-      preserveUrlFragmentsForLogins: false
-    }
-    platform: {
-      enabled: true
-    }
+module authConfig './containerAppAuthConfig.bicep' = {
+  name: authConfigDeploymentName
+  params: {
+    clientId: keyVault.getSecret(identityProviderClientIdSecretName)
+    clientSecretSecretName: identityProviderClientSecretSecretName
+    containerAppName: containerApp.name
+    tokenIssuer: keyVault.getSecret(identityProviderOpenIdIssuerSecretName)
   }
 }
 
