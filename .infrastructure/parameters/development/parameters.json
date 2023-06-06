@@ -26,9 +26,6 @@
       "acaIdentityProviderClientSecretSecretName": {
         "value": "ACA-IDENTITY-PROVIDER-SECRET"
       },
-      "apiManagementServiceName": {
-        "value": "cmh-beer-api-apim-dev"
-      },
       "apiManagementPublisherEmail": {
         "value": "chhouse@microsoft.com"
       },
@@ -37,15 +34,6 @@
       },
       "containerName": {
         "value": "beer-collection-api"
-      },
-      "redisCacheName": {
-        "value": "cmh-beer-api-rc-dev"
-      },
-      "apimAppInsightsName": {
-        "value": "cmh-beer-api-apim-ai-dev"
-      },
-      "containerAppAppInsightsName": {
-        "value": "cmh-beer-api-aca-ai-dev"
       },
       "environmentName": {
         "value": "development"

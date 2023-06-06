@@ -4,14 +4,10 @@ param workloadName string
 param resourceNamePrefix string
 param environmentSuffix string
 param partitionKeyPath string
-param apiManagementServiceName string
 param apiManagementPublisherEmail string
 param apiManagementPublisherName string
 param containerName string
 param containerVersionTag string
-param redisCacheName string
-param containerAppAppInsightsName string
-param apimAppInsightsName string
 param environmentName string
 param containerAppIdentityProviderClientIdSecretName string
 param containerAppIdentityProviderOpenIdIssuerSecretName string
@@ -48,6 +44,10 @@ var logAnalyticsWorkspaceName = '${resourceNamePrefix}-${workloadName}-laws-${en
 var containerRegistryName = '${resourceNamePrefix}${replace(workloadName, '-', '')}cr${environmentSuffix}'
 var containerAppsEnvironmentName = '${resourceNamePrefix}-${workloadName}-aca-env-${environmentSuffix}'
 var containerAppName = '${resourceNamePrefix}-${workloadName}-aca-${environmentSuffix}'
+var apiManagementServiceName = '${resourceNamePrefix}-${workloadName}-apim-${environmentSuffix}'
+var redisCacheName = '${resourceNamePrefix}-${workloadName}-rc-${environmentSuffix}'
+var apimAppInsightsName = '${resourceNamePrefix}-${workloadName}-apim-ai-${environmentSuffix}'
+var containerAppAppInsightsName = '${resourceNamePrefix}-${workloadName}-aca-ai-${environmentSuffix}'
 
 module tags './modules/tags.bicep' = {
   name: tagsDeploymentName
