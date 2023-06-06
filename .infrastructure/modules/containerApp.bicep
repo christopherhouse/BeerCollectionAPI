@@ -20,7 +20,7 @@ var appInsightsInstrumentationKeySecretName = 'appinsights-instrumentation-key'
 var cosmosDbDatabaseNameSecretName = 'cosmos-database-name'
 var cosmosDbConnectionStringSecretName = 'cosmos-connection-string'
 var appInsightsConnectionStringSecretName = 'appinsights-connection-string'
-var identityProviderClientSecretSecretName = 'identityProviderClientSecretSettingName'
+var identityProviderClientSecretSecretName = 'identity-provider-client-secret'
 
 resource acr 'Microsoft.ContainerRegistry/registries@2023-01-01-preview' existing = {
   name: registry
