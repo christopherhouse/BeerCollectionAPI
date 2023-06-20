@@ -1,0 +1,21 @@
+{
+  "properties": {
+    "apiRevision": "1",
+    "apiVersion": "2023-06-20",
+    "apiVersionSetId": "/subscriptions/e1f57a36-4892-4716-9a3f-661432b39dbe/resourceGroups/BEER-API/providers/Microsoft.ApiManagement/service/cmhapimcons/apiVersionSets/6491f75d62bc75d952cbaf75",
+    "authenticationSettings": {},
+    "description": "",
+    "displayName": "Chuck Norris",
+    "isCurrent": true,
+    "path": "chuck",
+    "protocols": [
+      "https"
+    ],
+    "serviceUrl": "https://api.chucknorris.io",
+    "subscriptionKeyParameterNames": {
+      "header": "Ocp-Apim-Subscription-Key",
+      "query": "subscription-key"
+    },
+    "subscriptionRequired": true
+  }
+}

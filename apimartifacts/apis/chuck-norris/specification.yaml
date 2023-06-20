@@ -1,0 +1,28 @@
+openapi: 3.0.1
+info:
+  title: Chuck Norris
+  description: ''
+  version: '2023-06-20'
+servers:
+  - url: https://cmhapimcons.azure-api.net/chuck/2023-06-20
+paths:
+  /jokes/random:
+    get:
+      summary: Random Joke
+      operationId: random-joke
+      responses:
+        '200':
+          description: 
+components:
+  securitySchemes:
+    apiKeyHeader:
+      type: apiKey
+      name: Ocp-Apim-Subscription-Key
+      in: header
+    apiKeyQuery:
+      type: apiKey
+      name: subscription-key
+      in: query
+security:
+  - apiKeyHeader: [ ]
+  - apiKeyQuery: [ ]
