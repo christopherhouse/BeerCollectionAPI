@@ -1,0 +1,9 @@
+{
+  "properties": {
+    "approvalRequired": false,
+    "description": "My new product",
+    "displayName": "New Product",
+    "state": "notPublished",
+    "subscriptionRequired": true
+  }
+}
